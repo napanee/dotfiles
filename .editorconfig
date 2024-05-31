@@ -1,0 +1,9 @@
+root = true
+
+[*.sh]
+indent_style = tab
+indent_size = 4
+
+[*.txt]
+indent_style = tab
+indent_size = 4

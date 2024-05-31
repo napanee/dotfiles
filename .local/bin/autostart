@@ -1,0 +1,21 @@
+#!/bin/sh
+
+# set cursor-size
+xrdb ~/.Xresources
+
+# keymapping
+#[[ -f ~/.Xmodmap ]] && xmodmap ~/.Xmodmap
+
+# notification daemon
+dunst &
+
+picom &
+
+enpass &
+
+nextcloud &
+
+numlockx &
+
+# suspend after 30 minutes of inactivity
+xidlehook --not-when-audio --not-when-fullscreen --timer 1800 'systemctl suspend-then-hibernate' '' &

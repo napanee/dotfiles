@@ -1,0 +1,25 @@
+alias sshnas="ssh martin@192.168.2.2"
+
+alias vup="wg-quick up wg_config"
+alias vdown="wg-quick down wg_config"
+
+# Git:
+alias gbranches="git branch --list -a"
+alias glog="git log --decorate --graph --pretty=format:\"%C(cyan)%h%Creset %ad by %Cblue%an%Creset %Cred%s%Creset %Cgreen%d%Creset\" --abbrev-commit --date=relative"
+alias gst="git status --short --branch"
+
+# Databases
+alias createdb="createdb -h 127.0.0.1 -U postgres"
+alias dropdb="dropdb -h 127.0.0.1 -U postgres"
+alias psql="psql -h 127.0.0.1 -U postgres"
+alias mysql='mysql -h 127.0.0.1 -u root -p'
+alias createmysqldb='function _createMySqlDB() { echo "create database $1" | mysql -h 127.0.0.1 -u root -p; }; _createMySqlDB'
+
+unameOut="$(uname -s)"
+case "${unameOut}" in
+    Linux*)     machine=Linux;;
+    Darwin*)    machine=Mac;;
+    CYGWIN*)    machine=Cygwin;;
+    MINGW*)     machine=MinGw;;
+    *)          machine="UNKNOWN:${unameOut}"
+esac

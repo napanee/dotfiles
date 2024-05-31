@@ -1,0 +1,11 @@
+#!/bin/sh
+
+display_count=$(xrandr | grep " connected" | wc -l)
+
+if [ $display_count == 3 ]; then
+    display_desktop
+else
+    display_single
+fi
+
+qtile cmd-obj -o cmd -f reload_config

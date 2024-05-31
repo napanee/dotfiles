@@ -1,0 +1,39 @@
+[user]
+	email = martin@martingschneider.de
+	name = Martin Schneider
+	signingkey = 0A65573A4E6A0473
+	# signingkey = 0DA3DB26792A2F9C
+
+[core]
+	excludesfile = ~/.gitignore_global
+	editor = vim
+
+[alias]
+	st = status
+	co = checkout
+	b = branch
+	last = log -n 1
+	lg = log --color --graph --oneline --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+	dc = diff --cached
+	df = diff
+	pr = "!f() { git fetch -fu ${2:-origin} refs/pull/$1/head:pr/$1 && git checkout pr/$1; }; f"
+	pr-clean = "!git for-each-ref refs/heads/pr/* --format='%(refname)' | while read ref ; do branch=${ref#refs/heads/} ; git branch -D $branch ; done"
+
+[color]
+	ui = auto
+	branch = auto
+	diff = auto
+	interactive = auto
+	status = auto
+	flow = auto
+
+[commit]
+	template = ~/.gitmessage
+	gpsign = true
+	gpgsign = true
+[gpg]
+	program = gpg
+
+[init]
+	defaultBranch = main
+	# templatedir = ~/profile-settings/.git-templates

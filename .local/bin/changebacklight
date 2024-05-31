@@ -1,0 +1,28 @@
+#!/bin/sh
+
+# Increment or decrement the brightness and send a notification
+# of the current brightness level.
+
+send_notification() {
+	brightness=$(cat /sys/class/backlight/intel_backlight/brightness)
+	brightness=$(expr $brightness \* 100 / 96000)
+	dunstify -a "changebrightness" -u low -r 9992 -h int:value:"$brightness" -i "brightness-$1" "Brightness: ${brightness}%" -t 2000
+}
+
+case $1 in
+up)
+	brightness=$(cat /sys/class/backlight/intel_backlight/brightness)
+	brightness=$(expr $brightness + 4800)
+	brightness=$(( $brightness > 96000 ? 96000 : $brightness ))
+	echo $brightness > /sys/class/backlight/intel_backlight/brightness
+	send_notification "$1"
+	;;
+down)
+	brightness=$(cat /sys/class/backlight/intel_backlight/brightness)
+	brightness=$(expr $brightness - 4800)
+	brightness=$(( $brightness < 0 ? 0 : $brightness ))
+	echo $brightness > /sys/class/backlight/intel_backlight/brightness
+	send_notification "$1"
+	;;
+esac
+

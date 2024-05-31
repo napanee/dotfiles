@@ -1,0 +1,10 @@
+{
+    "primary": ["#3C4043", "#3C4043"],
+    "dark": ["#0E1013", "#0E1013"],
+    "text": ["#E8EAED", "#E8EAED"],
+    "focus": ["#ff0000", "#ff0000"],
+    "active": ["#E8EAED", "#E8EAED"],
+    "inactive": ["#0E1013", "#0E1013"],
+    "warning": ["#fC9C3C", "#fC9C3C"],
+    "urgent": ["#E06C75", "#E06C75"]
+}

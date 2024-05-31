@@ -1,0 +1,27 @@
+[global_config]
+  geometry_hinting = True
+  borderless = True
+  extra_styling = False
+  tab_position = bottom
+[keybindings]
+[profiles]
+  [[default]]
+    allow_bold = False
+    background_darkness = 0.85
+    background_type = transparent
+    cursor_fg_color = "#000000"
+    cursor_bg_color = "#aaaaaa"
+    font = SauceCodePro Nerd Font Mono Medium 11
+    show_titlebar = False
+    scrollbar_position = hidden
+    use_system_font = False
+[layouts]
+  [[default]]
+    [[[window0]]]
+      type = Window
+      parent = ""
+    [[[child1]]]
+      type = Terminal
+      parent = window0
+      profile = default
+[plugins]

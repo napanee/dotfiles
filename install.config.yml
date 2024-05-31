@@ -1,0 +1,88 @@
+- clean: ['~', '~/.config']
+
+- create:
+    ~/.config:
+      mode: 0755
+    ~/.local:
+      mode: 0755
+
+- link:
+    ~/.gnupg/gpg-agent.conf:
+      force: true
+      path: .gnupg/gpg-agent.conf
+    ~/.gitconfig:
+      force: true
+      path: .gitconfig
+    ~/.gitignore_global:
+      force: true
+      path: .gitignore_global
+    ~/.gitmessage:
+      force: true
+      path: .gitmessage
+    ~/.p10k.zsh:
+      force: true
+      path: .p10k.zsh
+    ~/.tigrc:
+      force: true
+      path: .tigrc
+    ~/.vimrc:
+      force: true
+      path: .vimrc
+    ~/.xinitrc:
+      force: true
+      path: .xinitrc
+    ~/.Xmodmap:
+      force: true
+      path: .Xmodmap
+    ~/.xprofile:
+      force: true
+      path: .xprofile
+    ~/.Xresources:
+      force: true
+      path: .Xresources
+    ~/.zshrc:
+      force: true
+      path: .zshrc
+    ~/.config/betterlockscreen:
+      force: true
+      path: .config/betterlockscreen
+    ~/.config/btop:
+      force: true
+      path: .config/btop
+    ~/.config/dunst:
+      force: true
+      path: .config/dunst
+    ~/.config/picom:
+      force: true
+      path: .config/picom
+    ~/.config/lf:
+      force: true
+      create: true
+      path: .config/lf
+    ~/.config/mpv:
+      force: true
+      create: true
+      path: .config/mpv
+    ~/.config/ncdu:
+      force: true
+      create: true
+      path: .config/ncdu
+    ~/.config/qtile:
+      force: true
+      create: true
+      path: .config/qtile
+    ~/.config/rofi:
+      force: true
+      path: .config/rofi
+    ~/.config/terminator:
+      force: true
+      path: .config/terminator
+    ~/.local/bin:
+      create: true
+      path: .local/bin/
+    ~/.oh-my-zsh/:
+      force: true
+      path: .oh-my-zsh/
+    ~/.powerlevel10k:
+      force: true
+      path: .powerlevel10k/
