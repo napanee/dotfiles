@@ -3,6 +3,8 @@
 - create:
     ~/.config:
       mode: 0755
+    ~/.gnupg:
+      mode: 0700
     ~/.local:
       mode: 0755
 
