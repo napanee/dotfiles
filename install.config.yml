@@ -15,6 +15,9 @@
     ~/.gitconfig:
       force: true
       path: .gitconfig
+    ~/.gitconfig-work:
+      force: true
+      path: .gitconfig-work
     ~/.gitignore_global:
       force: true
       path: .gitignore_global
