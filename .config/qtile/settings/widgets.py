@@ -186,7 +186,7 @@ primary_widgets = [
     widget.Net(**base(), format=' {up:6.2f}  {down:6.2f} ', prefix='k'),
     widget.Wlan(
         **base(),
-        interface='wlp163s0',
+        interface='wlp164s0',
         disconnected_message='(-)',
         update_interval=2,
         format='({essid}, {percent:1.0%})'
