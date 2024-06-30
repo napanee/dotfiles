@@ -18,8 +18,8 @@ keys = [
 
     Key([mod, 'shift'], 'q', lazy.spawn('powermenu')),
 
-    Key([mod, 'shift'], 'd', lazy.spawn('xrandr --output eDP-1 --mode 1920x1080 --pos 6000x1868 --rotate normal --output DP-1 --off --output HDMI-1 --off --output DP-2 --mode 3840x2160 --pos 0x0 --rotate left --output HDMI-2 --off --output DP-3 --off --output HDMI-3 --off --output DP-1-8 --primary --mode 3840x2160 --pos 2160x958 --rotate normal --output DP-1-1 --off')),
-    Key([mod, 'shift'], 's', lazy.spawn('xrandr --output eDP-1 --primary --mode 1920x1080 --pos 0x0 --rotate normal --output DP-1 --off --output HDMI-1 --off --output DP-2 --off --output HDMI-2 --off --output DP-3 --off --output HDMI-3 --off --output DP-1-8 --off --output DP-1-1 --off')),
+    Key([mod, 'shift'], 'd', lazy.spawn('display_desktop')),
+    Key([mod, 'shift'], 's', lazy.spawn('display_single')),
 
 
     Key([mod], 'r', lazy.layout.reset()),
