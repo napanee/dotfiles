@@ -40,6 +40,7 @@ floating_layout = layout.Floating(
         Match(wm_class='sun-awt-X11-XDialogPeer'),
         Match(wm_class='sun-awt-X11-XWindowPeer'),
         Match(wm_class='pavucontrol'),
+        Match(wm_class='com.cisco.secureclient.gui'),
         Match(title='branchdialog'),
         Match(title='pinentry'),
         Match(title='Terminator Preferences'),
