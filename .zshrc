@@ -10,6 +10,7 @@ if [ "$(tty)" = "/dev/tty1" ]; then
 fi
 
 source ~/.powerlevel10k/powerlevel10k.zsh-theme
+source ~/.aliases
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
