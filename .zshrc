@@ -2,6 +2,10 @@
 export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:/usr/bin:$PATH
 export PATH=$PATH:./node_modules/.bin
 
+export PGHOST=localhost
+export PGUSER=postgres
+export PGPASSWORD=postgres
+
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 
