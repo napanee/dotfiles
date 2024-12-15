@@ -47,6 +47,8 @@ keys = [
     #     lazy.layout.toggle_switch(),
     #     lazy.layout.flip()),
 
+    Key([mod, 'shift'], 'space', lazy.widget['keyboardlayout'].next_keyboard(), desc='Next keyboard layout.'),
+
     # Toggle between different layouts as defined below
     Key([mod], 'l', lazy.next_layout()),
 

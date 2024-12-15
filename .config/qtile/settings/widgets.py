@@ -211,6 +211,8 @@ primary_widgets = [
     icon(text=''),
     icon(fg='text', text='', padding=5, fontsize=26),
     widget.Backlight(**base(), backlight_name='intel_backlight'),
+    icon(text=''),
+    widget.KeyboardLayout(**base(), configured_keyboards=['us', 'de']),
     icon(text=''),
     widget.Clock(**base(bg='dark'), format='  %a, %d. %b   %H:%M:%S'),
 ]
