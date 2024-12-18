@@ -14,7 +14,7 @@ keys = [
     Key([mod, 'shift'], 'e', lazy.spawn('rofi -show emoji')),
     Key([mod, 'shift'], 'w', lazy.spawn('wifimenu')),
     Key([mod], 'k', lazy.spawn('/usr/bin/xmodmap ~/.Xmodmap')),
-    Key([mod], 'b', lazy.spawn('firefox')),
+    Key([mod], 'b', lazy.spawn('google-chrome-stable')),
 
     Key([mod, 'shift'], 'q', lazy.spawn('powermenu')),
 
@@ -31,10 +31,16 @@ keys = [
     # Move windows up or down in current stack
     Key([mod, 'shift'], 'down', lazy.layout.shuffle_down()),
     Key([mod, 'shift'], 'up', lazy.layout.shuffle_up()),
-    Key([mod, 'shift'], 'plus', lazy.layout.grow()),
+    Key([mod, 'shift'], 'equal', lazy.layout.grow()),
     Key([mod, 'shift'], 'minus', lazy.layout.shrink()),
 
     Key([mod, 'shift'], 'f', lazy.window.toggle_floating()),
+
+    Key([mod, 'shift'], 'left', lazy.prev_screen()),
+    Key([mod, 'shift'], 'right', lazy.next_screen()),
+
+    # Key([mod, 'shift'], 'left', lazy.prev_screen()),
+    # Key([mod, 'shift'], 'right', lazy.next_screen()),
 
     # Swap panes of split stack
     # Key([mod, 'shift'], 'n', lazy.layout.client_to_next()),
