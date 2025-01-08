@@ -21,6 +21,9 @@
     ~/.gitignore_global:
       force: true
       path: .gitignore_global
+    ~/.aliases:
+      force: true
+      path: .aliases
     ~/.gitmessage:
       force: true
       path: .gitmessage
