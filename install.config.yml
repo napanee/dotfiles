@@ -51,6 +51,10 @@
     ~/.zshrc:
       force: true
       path: .zshrc
+    ~/.config/aerospace:
+      if: '[ `uname` = Darwin ]'
+      force: true
+      path: .config/aerospace
     ~/.config/betterlockscreen:
       force: true
       path: .config/betterlockscreen
