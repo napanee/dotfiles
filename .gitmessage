@@ -1,7 +1,21 @@
 
 
-# Title: Summary, imperative, start upper case, don't end with a period
-# No more than 50 chars. #### 50 chars is here:  #
+# Title: `type(scope): ...`
+# Allowed types:
+# - feat: Fügt eine neue Funktionalität hinzu.
+# - fix: Behebt einen Bug.
+# - chore: Änderungen, die nichts mit dem Code oder der Funktionalität zu tun haben (z. B. Build-Änderungen, Dependency-Updates).
+# - docs: Änderungen an der Dokumentation.
+# - style: Anpassungen, die den Code-Style betreffen (ohne funktionale Änderungen).
+# - refactor: Code-Änderungen zur Verbesserung der Struktur, ohne das Verhalten zu ändern.
+# - perf: Optimierungen zur Leistungsverbesserung.
+# - test: Änderungen an Tests oder neue Tests.
+# - revert: Macht einen vorherigen Commit rückgängig.
+#
+# Allowed scopes:
+# ci, config, contentful, deps, i18n, routing, services, storybook, ui, utils
+
+# No more than 50 chars. #### 100 chars is here:                                                   #
 
 # Remember blank line between title and body.
 
