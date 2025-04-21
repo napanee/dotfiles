@@ -4,6 +4,7 @@ sketchybar --add event aerospace_workspace_change
 sketchybar --add event aerospace_mode
 
 SPACE=(
+  background.color=$COLOR_BRAND
   background.height=18
   background.padding_right=2
   background.padding_left=2
@@ -33,7 +34,7 @@ create_space_item() {
 create_bracket() {
   bracket_name="bracket_spaces_${bracket_index}"
   sketchybar --add bracket "$bracket_name" "${bracket_spaces[@]}" \
-              --set "$bracket_name" background.color=$COLOR_BRAND
+             --set "$bracket_name"
 
   bracket_spaces=()
   bracket_index=$((bracket_index + 1))
@@ -45,15 +46,14 @@ bracket_index=1
 # Display 1 - All 9 Spaces
 ##############################################
 
+screen=1
 for i in {1..9}; do
-  screen=1
   create_space_item $screen $i
 
   if [[ $i == 2 || $i == 4 || $i == 9 ]]; then
-    # Add spacer
-    sketchybar --add item "m1_bracket_spacer_${i}" left \
-               --set "m${screen}_bracket_spacer_${i}" "${SPACER[@]}" width=10 display=$screen
-    
+    sketchybar --add item "m${screen}_bracket_separator_${i}" left \
+               --set "m${screen}_bracket_separator_${i}" "${SEPARATOR[@]}" width=10 display=$screen
+
     create_bracket
   fi
 done
@@ -62,8 +62,8 @@ done
 # Display 2 - Only Spaces 3 and 4
 ##############################################
 
+screen=2
 for i in {3..4}; do
-  screen=2
   create_space_item $screen $i
 done
 
@@ -73,8 +73,8 @@ create_bracket
 # Display 3 - Only Spaces 5 till 9
 ##############################################
 
+screen=3
 for i in {5..9}; do
-  screen=3
   create_space_item $screen $i
 done
 

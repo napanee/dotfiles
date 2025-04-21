@@ -31,8 +31,8 @@ default=(
   label.padding_right=4
 )
 
-# Spacer
-SPACER=(
+# Separator
+SEPARATOR=(
   label.drawing=off
   icon.drawing=off
   padding_left=2

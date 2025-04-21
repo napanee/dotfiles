@@ -1,14 +1,13 @@
 #!/bin/sh
 
-# Spacer vor dem Front App Icon
-SPACER_FRONT_APP_LEFT=(
-  "${SPACER[@]}"
+SEPARATOR_FRONT_APP_LEFT=(
+  "${SEPARATOR[@]}"
   display=1
   padding_left=0
   padding_right=0
 )
-sketchybar --add item spacer_front_app_left left \
-           --set spacer_front_app_left "${SPACER_FRONT_APP_LEFT[@]}"
+sketchybar --add item separator_front_app_left left \
+           --set separator_front_app_left "${SEPARATOR_FRONT_APP_LEFT[@]}"
 
 # Front App Icon
 front_app=(
