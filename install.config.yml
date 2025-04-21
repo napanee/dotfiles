@@ -56,12 +56,15 @@
       force: true
       path: .config/aerospace
     ~/.config/betterlockscreen:
+      if: '[ `uname` = Linux ]'
       force: true
       path: .config/betterlockscreen
     ~/.config/btop:
+      if: '[ `uname` = Linux ]'
       force: true
       path: .config/btop
     ~/.config/dunst:
+      if: '[ `uname` = Linux ]'
       force: true
       path: .config/dunst
     ~/.config/karabiner/karabiner.json:
@@ -70,31 +73,38 @@
       create: true
       path: .config/karabiner/karabiner.json
     ~/.config/picom:
+      if: '[ `uname` = Linux ]'
       force: true
       path: .config/picom
     ~/.config/lf:
+      if: '[ `uname` = Linux ]'
       force: true
       create: true
       path: .config/lf
     ~/.config/mpv:
+      if: '[ `uname` = Linux ]'
       force: true
       create: true
       path: .config/mpv
     ~/.config/ncdu:
+      if: '[ `uname` = Linux ]'
       force: true
       create: true
       path: .config/ncdu
     ~/.config/qtile:
+      if: '[ `uname` = Linux ]'
       force: true
       create: true
       path: .config/qtile
     ~/.config/rofi:
+      if: '[ `uname` = Linux ]'
       force: true
       path: .config/rofi
     ~/.config/tig:
       force: true
       path: .config/tig
     ~/.config/terminator:
+      if: '[ `uname` = Linux ]'
       force: true
       path: .config/terminator
     ~/.config/yazi:
