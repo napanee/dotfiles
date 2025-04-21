@@ -64,6 +64,11 @@
     ~/.config/dunst:
       force: true
       path: .config/dunst
+    ~/.config/karabiner/karabiner.json:
+      if: '[ `uname` = Darwin ]'
+      force: true
+      create: true
+      path: .config/karabiner/karabiner.json
     ~/.config/picom:
       force: true
       path: .config/picom
