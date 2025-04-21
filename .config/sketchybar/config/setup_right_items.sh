@@ -3,7 +3,7 @@
 # Clock
 sketchybar --add item time right \
            --set time update_freq=1 \
-                 background.color=0x00000000 \
+                 background.color=$COLOR_TRANSPARENT \
                  icon= \
                  label.padding_right=10 \
                  script="$PLUGIN_DIR/time.sh"
@@ -11,7 +11,7 @@ sketchybar --add item time right \
 # Date
 sketchybar --add item date right \
            --set date update_freq=30 \
-                 background.color=0x00000000 \
+                 background.color=$COLOR_TRANSPARENT \
                  icon="󰸗" \
                  icon.padding_left=10 \
                  icon.font="$FONT_FACE:Bold:16.0" \
@@ -49,11 +49,11 @@ sketchybar --add item wifi right \
                  icon.font="$FONT_FACE:Bold:20.0" \
                  icon.padding_right=9 \
                  icon.padding_left=10 \
-                 icon.color=0xffd0021b \
-                 icon.highlight_color=0xff7ed321 \
+                 icon.color=$COLOR_ALERT \
+                 icon.highlight_color=$COLOR_SUCCESS \
                  padding_right=5 \
                  label.drawing=off \
-                 script="$PLUGIN_DIR/wifi.sh"\
+                 script="$PLUGIN_DIR/wifi.sh" \
            --subscribe wifi wifi_change \
 
 # VPN Connecttion
@@ -62,8 +62,18 @@ sketchybar --add item vpn_status right \
                  icon.font="$FONT_FACE:Bold:20.0" \
                  icon.padding_right=9 \
                  icon.padding_left=10 \
-                 icon.color=0xffd0021b \
-                 icon.highlight_color=0xff7ed321 \
+                 icon.color=$COLOR_ALERT \
+                 icon.highlight_color=$COLOR_SUCCESS \
                  padding_right=5 \
                  label.drawing=off \
                  script="$PLUGIN_DIR/vpn_status.sh"
+
+sketchybar --add item aerospace_mode right \
+           --set aerospace_mode \
+                 icon="󰰡" \
+                 label.drawing=off \
+                 icon.padding_right=10 \
+                 icon.padding_left=10 \
+                 padding_right=5 \
+                 script="$PLUGIN_DIR/aerospace_mode.sh" \
+           --subscribe aerospace_mode aerospace_mode

@@ -12,7 +12,7 @@ sketchybar --add item spacer_front_app_left left \
 
 # Front App Icon
 front_app=(
-  background.color=0xCC007aff
+  background.color=$COLOR_BRAND
   icon.padding_left=10
   icon.padding_right=10
   label.drawing=off
@@ -24,9 +24,9 @@ sketchybar --add item front_app left \
 
 # Front App Name
 front_app_name=(
-  background.color=0x00000000
+  background.color=$COLOR_TRANSPARENT
   icon.drawing=off
-  label.color=0xffcad3f5
+  label.color=$COLOR_WHITE
   label.padding_left=10
   label.padding_right=10
   display=1

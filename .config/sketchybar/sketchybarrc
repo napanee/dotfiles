@@ -2,6 +2,7 @@
 
 # Load Configs
 source "$CONFIG_DIR/config/config.sh"
+source "$CONFIG_DIR/config/colors.sh"
 source "$CONFIG_DIR/config/styles.sh"
 
 # Basic Bar Setup
@@ -9,7 +10,7 @@ sketchybar --bar "${bar[@]}"
 sketchybar --default "${default[@]}"
 
 # Setup Bar Items
-source "$CONFIG_DIR/config/setup_spaces.sh"
+source "$CONFIG_DIR/items/aerospace.sh"
 source "$CONFIG_DIR/config/setup_left_items.sh"
 source "$CONFIG_DIR/config/setup_right_items.sh"
 
