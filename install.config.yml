@@ -94,6 +94,9 @@
     ~/.config/terminator:
       force: true
       path: .config/terminator
+    ~/.config/yazi:
+      force: true
+      path: .config/yazi
     ~/.local/bin:
       create: true
       path: .local/bin/
