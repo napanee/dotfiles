@@ -91,6 +91,9 @@
     ~/.config/rofi:
       force: true
       path: .config/rofi
+    ~/.config/tig:
+      force: true
+      path: .config/tig
     ~/.config/terminator:
       force: true
       path: .config/terminator
