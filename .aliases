@@ -1,5 +1,7 @@
 alias sshnas="ssh martin@192.168.2.2"
 
+alias ip="ipconfig getsummary en0 | grep -o 'yiaddr = .*' | sed 's/^yiaddr = //'"
+
 alias vup="wg-quick up wg_config"
 alias vdown="wg-quick down wg_config"
 
