@@ -33,9 +33,8 @@ default=(
 
 # Separator
 SEPARATOR=(
+  width=5
   label.drawing=off
   icon.drawing=off
-  padding_left=2
-  padding_right=2
   background.color=$TRANSPARENT
 )
