@@ -1,17 +1,5 @@
 #!/bin/sh
 
-# Front App Icon
-front_app=(
-  background.color=$COLOR_BRAND
-  icon.padding_left=10
-  icon.padding_right=10
-  label.drawing=off
-  script="$PLUGIN_DIR/front_app.sh"
-  display=1
-)
-sketchybar --add item front_app left \
-           --set front_app "${front_app[@]}"
-
 # Front App Name
 front_app_name=(
   background.color=$COLOR_TRANSPARENT
@@ -21,8 +9,20 @@ front_app_name=(
   label.padding_right=10
   display=1
 )
-sketchybar --add item front_app.name left \
+sketchybar --add item front_app.name q \
            --set front_app.name "${front_app_name[@]}"
+
+# Front App Icon
+front_app=(
+  background.color=$COLOR_BRAND
+  icon.padding_left=10
+  icon.padding_right=10
+  label.drawing=off
+  script="$PLUGIN_DIR/front_app.sh"
+  display=1
+)
+sketchybar --add item front_app q \
+           --set front_app "${front_app[@]}"
 
 # Bracket für Front App
 sketchybar --add bracket bracket_front_app front_app front_app.name \

@@ -10,6 +10,7 @@ SPACE=(
   background.padding_left=0
   icon.padding_right=5
   icon.padding_left=5
+  icon.y_offset=1
   label.drawing=off
 )
 
