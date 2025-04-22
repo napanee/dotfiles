@@ -100,52 +100,52 @@ on-focus-changed = 'move-mouse window-lazy-center'
   alt-comma = 'layout accordion horizontal vertical'
 
   # See: https://nikitabobko.github.io/AeroSpace/commands#focus
-  alt-h = 'focus left'
-  alt-j = 'focus down'
-  alt-k = 'focus up'
-  alt-l = 'focus right'
+  ctrl-h = 'focus left'
+  ctrl-j = 'focus down'
+  ctrl-k = 'focus up'
+  ctrl-l = 'focus right'
 
-  alt-q = 'focus-monitor 1'
-  alt-w = 'focus-monitor 2'
-  alt-e = 'focus-monitor 3'
+  ctrl-q = 'focus-monitor 1'
+  ctrl-w = 'focus-monitor 2'
+  ctrl-e = 'focus-monitor 3'
 
   # See: https://nikitabobko.github.io/AeroSpace/commands#move
-  alt-shift-h = 'move left'
-  alt-shift-j = 'move down'
-  alt-shift-k = 'move up'
-  alt-shift-l = 'move right'
+  ctrl-shift-h = 'move left'
+  ctrl-shift-j = 'move down'
+  ctrl-shift-k = 'move up'
+  ctrl-shift-l = 'move right'
 
   # See: https://nikitabobko.github.io/AeroSpace/commands#resize
-  alt-shift-minus = 'resize smart -50'
-  alt-shift-equal = 'resize smart +50'
+  ctrl-shift-minus = 'resize smart -50'
+  ctrl-shift-equal = 'resize smart +50'
 
   # See: https://nikitabobko.github.io/AeroSpace/commands#workspace
-  alt-1 = 'workspace 1'
-  alt-2 = 'workspace 2'
-  alt-3 = 'workspace 3'
-  alt-4 = 'workspace 4'
-  alt-5 = 'workspace 5'
-  alt-6 = 'workspace 6'
-  alt-7 = 'workspace 7'
-  alt-8 = 'workspace 8'
-  alt-9 = 'workspace 9'
+  ctrl-1 = 'workspace 1'
+  ctrl-2 = 'workspace 2'
+  ctrl-3 = 'workspace 3'
+  ctrl-4 = 'workspace 4'
+  ctrl-5 = 'workspace 5'
+  ctrl-6 = 'workspace 6'
+  ctrl-7 = 'workspace 7'
+  ctrl-8 = 'workspace 8'
+  ctrl-9 = 'workspace 9'
 
   # See: https://nikitabobko.github.io/AeroSpace/commands#move-node-to-workspace
-  alt-shift-1 = ['move-node-to-workspace 1', 'workspace 1']
-  alt-shift-2 = ['move-node-to-workspace 2', 'workspace 2']
-  alt-shift-3 = ['move-node-to-workspace 3', 'workspace 3']
-  alt-shift-4 = ['move-node-to-workspace 4', 'workspace 4']
-  alt-shift-5 = ['move-node-to-workspace 5', 'workspace 5']
-  alt-shift-6 = ['move-node-to-workspace 6', 'workspace 6']
-  alt-shift-7 = ['move-node-to-workspace 7', 'workspace 7']
-  alt-shift-8 = ['move-node-to-workspace 8', 'workspace 8']
-  alt-shift-9 = ['move-node-to-workspace 9', 'workspace 9']
+  ctrl-shift-1 = ['move-node-to-workspace 1', 'workspace 1']
+  ctrl-shift-2 = ['move-node-to-workspace 2', 'workspace 2']
+  ctrl-shift-3 = ['move-node-to-workspace 3', 'workspace 3']
+  ctrl-shift-4 = ['move-node-to-workspace 4', 'workspace 4']
+  ctrl-shift-5 = ['move-node-to-workspace 5', 'workspace 5']
+  ctrl-shift-6 = ['move-node-to-workspace 6', 'workspace 6']
+  ctrl-shift-7 = ['move-node-to-workspace 7', 'workspace 7']
+  ctrl-shift-8 = ['move-node-to-workspace 8', 'workspace 8']
+  # ctrl-shift-9 = ['move-node-to-workspace 9', 'workspace 9']
 
-  alt-shift-f = 'fullscreen'
+  ctrl-shift-f = 'fullscreen --no-outer-gaps'
 
-  alt-shift-q = ['move-node-to-monitor 1', 'focus-monitor 1']
-  alt-shift-w = ['move-node-to-monitor 2', 'focus-monitor 2']
-  alt-shift-e = ['move-node-to-monitor 3', 'focus-monitor 3']
+  ctrl-shift-q = ['move-node-to-monitor 1', 'focus-monitor 1']
+  ctrl-shift-w = ['move-node-to-monitor 2', 'focus-monitor 2']
+  ctrl-shift-e = ['move-node-to-monitor 3', 'focus-monitor 3']
 
   # See: https://nikitabobko.github.io/AeroSpace/commands#workspace-back-and-forth
   alt-tab = 'workspace-back-and-forth'
