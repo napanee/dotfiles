@@ -1,12 +1,14 @@
 #!/bin/sh
 
+source "$CONFIG_DIR/config/colors.sh"
+
 STATUS="$(/opt/cisco/secureclient/bin/vpn state | grep 'Connected')"
 ICON=""
-HIGHLIGHT=off
+COLOR=$COLOR_ALERT
 
 if [[ "$STATUS" != "" ]]; then
   ICON=""
-  HIGHLIGHT=on
+  COLOR=$COLOR_SUCCESS
 fi
 
-sketchybar --set "$NAME" icon="$ICON" icon.highlight="$HIGHLIGHT"
+sketchybar --set "$NAME" icon="$ICON" icon.color="$COLOR"

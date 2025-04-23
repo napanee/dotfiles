@@ -13,6 +13,7 @@ sketchybar --default "${default[@]}"
 source "$CONFIG_DIR/items/logo.sh"
 source "$CONFIG_DIR/items/aerospace.sh"
 source "$CONFIG_DIR/items/front_app.sh"
+source "$CONFIG_DIR/items/ip_address.sh"
 source "$CONFIG_DIR/config/setup_right_items.sh"
 
 ##### Force all scripts to run the first time (never do this in a script) #####
