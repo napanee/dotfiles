@@ -111,6 +111,7 @@
       force: true
       path: .config/yazi
     ~/.local/bin:
+      if: '[ `uname` = Linux ]'
       create: true
       path: .local/bin/
     ~/.oh-my-zsh/:
