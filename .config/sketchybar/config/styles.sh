@@ -3,8 +3,9 @@
 # Bar Appearance
 bar=(
   position=top
-  notch_display_height=32
-  height=30
+  notch_display_height=38
+  notch_width=230
+  height=38
   margin=0
   y_offset=0
   corner_radius=0
