@@ -51,6 +51,10 @@
     ~/.zshrc:
       force: true
       path: .zshrc
+    ~/.hammerspoon/init.lua:
+      force: true
+      create: true
+      path: .hammerspoon/init.lua
     ~/.config/aerospace:
       if: '[ `uname` = Darwin ]'
       force: true
