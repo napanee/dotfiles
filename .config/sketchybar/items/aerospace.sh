@@ -3,6 +3,7 @@
 sketchybar --add event aerospace_workspace_change
 sketchybar --add event aerospace_mode
 
+DISPLAY_COUNT=$(system_profiler SPDisplaysDataType | grep -E '^\s{8}[^\s].+:$' | wc -l)
 SPACE=(
   background.color=$COLOR_BRAND
   background.height=18
@@ -10,7 +11,6 @@ SPACE=(
   background.padding_left=0
   icon.padding_right=5
   icon.padding_left=5
-  icon.y_offset=1
   label.drawing=off
 )
 
@@ -71,7 +71,13 @@ create_bracket() {
 ##############################################
 setup_screen 1 1 9
 screen=1
-list=("1 2" "3 4" "5 9") # "start_space end_space"
+if [ "$DISPLAY_COUNT" -eq 1 ]; then
+  list=("1 9") # "start_space end_space"
+elif [ "$DISPLAY_COUNT" -eq 2 ]; then
+  list=("1 4" "5 9") # "start_space end_space"
+else
+  list=("1 2" "3 4" "5 9") # "start_space end_space"
+fi
 for item in "${list[@]}"; do
   start_space=$(echo "$item" | awk '{print $1}')
   end_space=$(echo "$item" | awk '{print $2}')
@@ -83,14 +89,22 @@ for item in "${list[@]}"; do
              --move "m${screen}_bracket_separator_${end_space}" after "m${screen}_${start_space}_bracket_separator_right"
 done
 
-##############################################
-# Screen 2, Spaces 3 - 4
-##############################################
-setup_screen 2 3 4
-create_bracket 2 3 4
+if [ "$DISPLAY_COUNT" -eq 2 ]; then
+  ##############################################
+  # Screen 2, Spaces 5 - 9
+  ##############################################
+  setup_screen 2 5 9
+  create_bracket 2 5 9
+elif [ "$DISPLAY_COUNT" -eq 3 ]; then
+  ##############################################
+  # Screen 2, Spaces 3 - 4
+  ##############################################
+  setup_screen 2 3 4
+  create_bracket 2 3 4
 
-# ##############################################
-# Screen 2, Spaces 5 - 9
-# ##############################################
-setup_screen 3 5 9
-create_bracket 3 5 9
+  # ##############################################
+  # Screen 2, Spaces 5 - 9
+  # ##############################################
+  setup_screen 3 5 9
+  create_bracket 3 5 9
+fi

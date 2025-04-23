@@ -3,12 +3,11 @@
 logo=(
   background.color=$COLOR_BRAND
   icon=
-  icon.y_offset=2
+  icon.y_offset=1
   icon.font="$FONT_FACE:Bold:18.0"
   icon.padding_left=8
   icon.padding_right=8
   label.drawing=off
-  display=1
 )
 sketchybar --add item logo left \
            --set logo "${logo[@]}"

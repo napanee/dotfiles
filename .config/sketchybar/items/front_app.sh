@@ -7,7 +7,6 @@ front_app_name=(
   label.color=$COLOR_WHITE
   label.padding_left=10
   label.padding_right=10
-  display=1
 )
 sketchybar --add item front_app.name q \
            --set front_app.name "${front_app_name[@]}"
@@ -19,7 +18,6 @@ front_app=(
   icon.padding_right=10
   label.drawing=off
   script="$PLUGIN_DIR/front_app.sh"
-  display=1
 )
 sketchybar --add item front_app q \
            --set front_app "${front_app[@]}"
