@@ -158,44 +158,44 @@ on-focus-changed = 'move-mouse window-lazy-center'
 # See: https://nikitabobko.github.io/AeroSpace/guide#binding-modes
 [mode.service.binding]
   esc = [
-      'reload-config',
-      'mode main',
-      'exec-and-forget sketchybar --trigger aerospace_mode MODE=main'
+    'reload-config',
+    'mode main',
+    'exec-and-forget sketchybar --trigger aerospace_mode MODE=main'
   ]
   r = [ # reset layout
-      'flatten-workspace-tree',
-      'mode main',
-      'exec-and-forget sketchybar --trigger aerospace_mode MODE=main'
+    'flatten-workspace-tree',
+    'mode main',
+    'exec-and-forget sketchybar --trigger aerospace_mode MODE=main'
   ]
   f = [ # Toggle between floating and tiling layout
-      'layout floating tiling',
-      'mode main',
-      'exec-and-forget sketchybar --trigger aerospace_mode MODE=main'
+    'layout floating tiling',
+    'mode main',
+    'exec-and-forget sketchybar --trigger aerospace_mode MODE=main'
   ]
   backspace = [
-      'close-all-windows-but-current',
-      'mode main',
-      'exec-and-forget sketchybar --trigger aerospace_mode MODE=main'
+    'close-all-windows-but-current',
+    'mode main',
+    'exec-and-forget sketchybar --trigger aerospace_mode MODE=main'
   ]
   alt-shift-h = [
-      'join-with left',
-      'mode main',
-      'exec-and-forget sketchybar --trigger aerospace_mode MODE=main'
+    'join-with left',
+    'mode main',
+    'exec-and-forget sketchybar --trigger aerospace_mode MODE=main'
   ]
   alt-shift-j = [
-      'join-with down',
-      'mode main',
-      'exec-and-forget sketchybar --trigger aerospace_mode MODE=main'
+    'join-with down',
+    'mode main',
+    'exec-and-forget sketchybar --trigger aerospace_mode MODE=main'
   ]
   alt-shift-k = [
-      'join-with up',
-      'mode main',
-      'exec-and-forget sketchybar --trigger aerospace_mode MODE=main'
+    'join-with up',
+    'mode main',
+    'exec-and-forget sketchybar --trigger aerospace_mode MODE=main'
   ]
   alt-shift-l = [
-      'join-with right',
-      'mode main',
-      'exec-and-forget sketchybar --trigger aerospace_mode MODE=main'
+    'join-with right',
+    'mode main',
+    'exec-and-forget sketchybar --trigger aerospace_mode MODE=main'
   ]
 
 [[on-window-detected]]
@@ -217,3 +217,7 @@ on-focus-changed = 'move-mouse window-lazy-center'
 [[on-window-detected]]
   if.app-id = 'com.google.Chrome'
   run = 'move-node-to-workspace 1'
+
+[[on-window-detected]]
+  if.app-id = 'com.apple.iphonesimulator'
+  run = ['layout floating']
