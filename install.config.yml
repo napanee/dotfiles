@@ -8,123 +8,85 @@
     ~/.local:
       mode: 0755
 
+- defaults:
+    link:
+      create: true
+      force: true
+
 - link:
-    ~/.gnupg/gpg-agent.conf:
-      force: true
-      path: .gnupg/gpg-agent.conf
     ~/.gitconfig:
-      force: true
       path: .gitconfig
     ~/.gitconfig-work:
-      force: true
       path: .gitconfig-work
     ~/.gitignore_global:
-      force: true
       path: .gitignore_global
     ~/.aliases:
-      force: true
       path: .aliases
     ~/.gitmessage:
-      force: true
       path: .gitmessage
     ~/.p10k.zsh:
-      force: true
       path: .p10k.zsh
     ~/.tigrc:
-      force: true
       path: .tigrc
-    ~/.vimrc:
-      force: true
-      path: .vimrc
-    ~/.xinitrc:
-      force: true
-      path: .xinitrc
-    ~/.Xmodmap:
-      force: true
-      path: .Xmodmap
-    ~/.xprofile:
-      force: true
-      path: .xprofile
-    ~/.Xresources:
-      force: true
-      path: .Xresources
     ~/.zshrc:
-      force: true
       path: .zshrc
-    ~/.hammerspoon/init.lua:
-      force: true
-      create: true
-      path: .hammerspoon/init.lua
-    ~/.config/aerospace:
-      if: '[ `uname` = Darwin ]'
-      force: true
-      path: .config/aerospace
-    ~/.config/betterlockscreen:
-      if: '[ `uname` = Linux ]'
-      force: true
-      path: .config/betterlockscreen
-    ~/.config/btop:
-      if: '[ `uname` = Linux ]'
-      force: true
-      path: .config/btop
-    ~/.config/dunst:
-      if: '[ `uname` = Linux ]'
-      force: true
-      path: .config/dunst
-    ~/.config/karabiner/karabiner.json:
-      if: '[ `uname` = Darwin ]'
-      force: true
-      create: true
-      path: .config/karabiner/karabiner.json
-    ~/.config/picom:
-      if: '[ `uname` = Linux ]'
-      force: true
-      path: .config/picom
-    ~/.config/lf:
-      if: '[ `uname` = Linux ]'
-      force: true
-      create: true
-      path: .config/lf
-    ~/.config/mpv:
-      if: '[ `uname` = Linux ]'
-      force: true
-      create: true
-      path: .config/mpv
-    ~/.config/ncdu:
-      if: '[ `uname` = Linux ]'
-      force: true
-      create: true
-      path: .config/ncdu
-    ~/.config/qtile:
-      if: '[ `uname` = Linux ]'
-      force: true
-      create: true
-      path: .config/qtile
-    ~/.config/rofi:
-      if: '[ `uname` = Linux ]'
-      force: true
-      path: .config/rofi
+    ~/.gnupg/gpg-agent.conf:
+      path: .gnupg/gpg-agent.conf
     ~/.config/tig:
-      force: true
       path: .config/tig
-    ~/.config/terminator:
-      if: '[ `uname` = Linux ]'
-      force: true
-      path: .config/terminator
-    ~/.config/wezterm:
-      if: '[ `uname` = Darwin ]'
-      force: true
-      path: .config/wezterm
     ~/.config/yazi:
-      force: true
       path: .config/yazi
-    ~/.local/bin:
-      if: '[ `uname` = Linux ]'
-      create: true
-      path: .local/bin/
     ~/.oh-my-zsh/:
-      force: true
       path: .oh-my-zsh/
     ~/.powerlevel10k:
-      force: true
       path: .powerlevel10k/
+
+- defaults:
+    link:
+      if: '[ `uname` = Darwin ]'
+
+- link:
+    ~/.hammerspoon/init.lua:
+      path: .hammerspoon/init.lua
+    ~/.config/aerospace:
+      path: .config/aerospace
+    ~/.config/karabiner/karabiner.json:
+      path: .config/karabiner/karabiner.json
+    ~/.config/wezterm:
+      path: .config/wezterm
+
+- defaults:
+    link:
+      if: '[ `uname` = Linux ]'
+
+- link:
+    ~/.xinitrc:
+      path: .xinitrc
+    ~/.Xmodmap:
+      path: .Xmodmap
+    ~/.xprofile:
+      path: .xprofile
+    ~/.Xresources:
+      path: .Xresources
+    ~/.config/betterlockscreen:
+      path: .config/betterlockscreen
+    ~/.config/btop:
+      path: .config/btop
+    ~/.config/dunst:
+      path: .config/dunst
+    ~/.config/picom:
+      path: .config/picom
+    ~/.config/lf:
+      path: .config/lf
+    ~/.config/mpv:
+      path: .config/mpv
+    ~/.config/ncdu:
+      path: .config/ncdu
+    ~/.config/qtile:
+      path: .config/qtile
+    ~/.config/rofi:
+      path: .config/rofi
+    ~/.config/terminator:
+      path: .config/terminator
+    ~/.local/bin:
+      path: .local/bin/
