@@ -111,6 +111,10 @@
       if: '[ `uname` = Linux ]'
       force: true
       path: .config/terminator
+    ~/.config/wezterm:
+      if: '[ `uname` = Darwin ]'
+      force: true
+      path: .config/wezterm
     ~/.config/yazi:
       force: true
       path: .config/yazi
