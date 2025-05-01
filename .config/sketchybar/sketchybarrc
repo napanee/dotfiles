@@ -3,18 +3,60 @@
 # Load Configs
 source "$CONFIG_DIR/config/config.sh"
 source "$CONFIG_DIR/config/colors.sh"
-source "$CONFIG_DIR/config/styles.sh"
+source "$ITEM_DIR/base.sh"
 
-# Basic Bar Setup
+bar=(
+  position=top
+  notch_display_height=38
+  notch_width=230
+  height=38
+  margin=0
+  y_offset=0
+  corner_radius=0
+  padding_left=10
+  padding_right=10
+  blur_radius=30
+  color=$COLOR_BAR_BACKGROUND_DEFAULT
+)
 sketchybar --bar "${bar[@]}"
+
+default=(
+  padding_left=0
+  padding_right=0
+  background.height=24
+  background.corner_radius=4
+  background.color=$COLOR_ITEM_BACKGROUND_DEFAULT
+  icon.font="$FONT_FACE:Bold:22.0"
+  icon.color=$COLOR_WHITE
+  icon.padding_left=4
+  icon.padding_right=4
+  label.font="$FONT_FACE:Bold:12.0"
+  label.color=$COLOR_WHITE
+  label.padding_left=4
+  label.padding_right=4
+)
 sketchybar --default "${default[@]}"
 
-# Setup Bar Items
+# left items
 source "$CONFIG_DIR/items/logo.sh"
 source "$CONFIG_DIR/items/aerospace.sh"
+
+# center left items
 source "$CONFIG_DIR/items/front_app.sh"
-source "$CONFIG_DIR/items/ip_address.sh"
-source "$CONFIG_DIR/config/setup_right_items.sh"
+
+sketchybar --add item notch_spacer e
+sketchybar --set notch_spacer width=10 background.drawing=off display=1,2
+
+# center right items
+source "$CONFIG_DIR/items/gitlab.sh"
+
+# right items
+source "$ITEM_DIR/datetime.sh"
+source "$ITEM_DIR/volume.sh"
+source "$ITEM_DIR/battery.sh"
+source "$ITEM_DIR/wifi.sh"
+source "$ITEM_DIR/vpn.sh"
+source "$ITEM_DIR/aerospace_mode.sh"
 
 ##### Force all scripts to run the first time (never do this in a script) #####
 sketchybar --update

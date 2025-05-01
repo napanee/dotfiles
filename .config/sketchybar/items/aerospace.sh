@@ -1,7 +1,6 @@
 #!/bin/bash
 
 sketchybar --add event aerospace_workspace_change
-sketchybar --add event aerospace_mode
 
 DISPLAY_COUNT=$(system_profiler SPDisplaysDataType | grep -E '^\s{8}[^\s].+:$' | wc -l | awk '{$1=$1};1')
 SPACE=(
