@@ -1,3 +1,3 @@
 hs.screen.watcher.new(function()
-    hs.execute("sketchybar --reload")
+    hs.execute("/opt/homebrew/bin/sketchybar --reload")
 end):start()
