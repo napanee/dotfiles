@@ -11,6 +11,11 @@ from settings.screens import screens
 from settings.mouse import mouse
 from settings.path import qtile_path
 
+@hook.subscribe.startup
+def autostart():
+    home = os.path.expanduser('~/.Xmodmap')
+    if os.path.isfile(home):
+        subprocess.run(['xmodmap', home])
 
 @hook.subscribe.startup_once
 def autostart():

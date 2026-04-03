@@ -1,7 +1,7 @@
 import os
 
 from libqtile import widget
-from libqtile.widget.base import ThreadPoolText, ORIENTATION_HORIZONTAL
+from libqtile.widget.base import BackgroundPoll, ORIENTATION_HORIZONTAL
 from libqtile.widget.net import Net as QtileNet
 from libqtile.widget.battery import Battery as QtileBattery, BatteryStatus, BatteryState
 from libqtile.widget.sensors import ThermalSensor as QtileThermalSensor
@@ -9,7 +9,7 @@ from libqtile.widget.sensors import ThermalSensor as QtileThermalSensor
 from .theme import colors
 
 
-class CPU(ThreadPoolText):
+class CPU(BackgroundPoll):
     orientations = ORIENTATION_HORIZONTAL
     defaults = [
         ('update_interval', 1, 'The update interval.'),
@@ -21,7 +21,7 @@ class CPU(ThreadPoolText):
     ]
 
     def __init__(self, **config):
-        ThreadPoolText.__init__(self, 'CPU', **config)
+        BackgroundPoll.__init__(self, 'CPU', **config)
         self.add_defaults(CPU.defaults)
         self.seconds = self.get_stats()
 
@@ -157,7 +157,7 @@ def workspaces():
         ),
         icon(text=''),
         separator(),
-        widget.CurrentLayoutIcon(
+        widget.CurrentLayout(
             **base(bg='dark'),
             custom_icon_paths=['~/.config/qtile/layout-icons/gruvbox-dark0'],
             padding = 0,

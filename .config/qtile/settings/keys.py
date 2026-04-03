@@ -7,7 +7,7 @@ from libqtile.lazy import lazy
 mod = os.getenv('QTILE_MOD', 'mod4')
 
 keys = [
-    Key([mod, 'shift'], 'Return', lazy.spawn('terminator')),
+    Key([mod, 'shift'], 'Return', lazy.spawn('wezterm')),
     Key([mod], 'space', lazy.spawn('rofi -show drun')),
     Key([mod], 'w', lazy.spawn('rofi -show window')),
     Key([mod, 'shift'], 'l', lazy.spawn('betterlockscreen -l')),
