@@ -2,44 +2,82 @@ local wezterm = require 'wezterm'
 local config = wezterm.config_builder()
 
 config.font = wezterm.font 'SauceCodePro Nerd Font Mono'
-config.font_size = 12
+config.font_size = 13
 config.color_scheme = "Vs Code Dark+ (Gogh)"
 config.colors = {
-  tab_bar = {
-    background = '#000000',
+	tab_bar = {
+		background = '#000000',
 	},
+}
+
+config.inactive_pane_hsb = {
+	saturation = 0,
+	brightness = 0.8,
 }
 
 -- config.enable_tab_bar = false
 config.window_decorations = "RESIZE"
-config.window_background_opacity = 0.9
+config.window_background_opacity = 0.95
 config.macos_window_background_blur = 20
 
 config.use_fancy_tab_bar = false
-config.hide_tab_bar_if_only_one_tab = true
+-- config.hide_tab_bar_if_only_one_tab = true
 config.tab_bar_at_bottom = true
 config.show_tab_index_in_tab_bar = false
-function tab_title(tab_info)
-	local title = tab_info.tab_title
-	-- if the tab title is explicitly set, take that
-	if title and #title > 0 then
-		return title
+config.tab_max_width = 100
+
+local project_config = {
+  ["/Users/martinschneider/projects/robinson/amello-frontend"] = { title = "Amello", color = "#3567F6" },
+  ["/Users/martinschneider/projects/robinson/mapping-provider-admin"] = { title = "MappingProvider Admin", color = "#85ccd3" },
+  ["/Users/martinschneider/projects/robinson/canto-frontify-sync"] = { title = "Canto-Frontify Sync", color = "#85ccd3" },
+}
+
+local function find_project_config(cwd)
+	local best_match = nil
+	local longest_prefix = 0
+
+	for path, config in pairs(project_config) do
+		if cwd:find(path, 1, true) and #path > longest_prefix then
+			best_match = config
+			longest_prefix = #path
+		end
 	end
-	-- Otherwise, use the title from the active pane
-	-- in that tab
-	return tab_info.active_pane.title
+
+	return best_match
 end
 
 wezterm.on(
 	'format-tab-title',
 	function(tab, tabs, panes, config, hover, max_width)
-		local title = tab_title(tab)
-		if tab.is_active then
-			return {
-				{ Text = ' >' .. title .. '< ' },
-			}
+		local pane = tab.active_pane
+		local cwd_uri = pane.current_working_dir and pane.current_working_dir or nil
+		local cwd = cwd_uri and cwd_uri.file_path or ""
+		local project = find_project_config(cwd)
+
+		local title = nil
+		local bg = nil
+		local fg = "#000000"
+
+		if project then
+			title = project.title
+			bg = project.color
+		else
+			title = tab.active_pane.title
+			bg = "#CDCDCD"
 		end
-		return ' |' .. title .. '| '
+
+		if tab.is_active then
+			title = " " .. title
+			bg = "#ff2d00"
+			fg = "#FFFFFF"
+		end
+
+		return {
+			{ Attribute = { Intensity = "Bold" } },
+			{ Background = { Color = bg } },
+			{ Foreground = { Color = fg } },
+			{ Text = "  " .. title .. "  " },
+		}
 	end
 )
 
