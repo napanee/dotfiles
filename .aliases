@@ -7,10 +7,24 @@ alias vdown="wg-quick down wg_config"
 
 # security add-generic-password -w <password> -a "vpn-robinson.plusline.de" -s "mschneider"
 function cisco_connect() {
-  CON_STR="connect \"vpn-robinson.plusline.de\"\n\nmschneider\n$(/usr/bin/security find-generic-password -w -a "vpn-robinson.plusline.de" -s mschneider)\n"
-  # Uncomment to debug
-#   echo $CON_STR
-  echo $CON_STR | /opt/cisco/secureclient/bin/vpn -s
+  local VPN_HOST="vpn-robinson.plusline.de"
+  local VPN_USER="mschneider"
+  local VPN_PASSWORD=""
+
+  if [[ "$OSTYPE" == "darwin"* ]]; then
+    # macOS: Use the keyring
+    VPN_PASSWORD=$(/usr/bin/security find-generic-password -w -a "$VPN_HOST" -s "$VPN_USER")
+  elif [[ -f /etc/arch-release ]] || [[ "$OSTYPE" == "linux-gnu"* ]]; then
+    # Arch Linux: Use pass
+    VPN_PASSWORD=$(pass vpn/mschneider | head -n 1 | xargs)
+  fi
+
+  if [[ -z "$VPN_PASSWORD" ]]; then
+    echo "Fehler: Passwort konnte nicht abgerufen werden."
+    return 1
+  fi
+
+  printf "connect \"${VPN_HOST}\"\n\n${VPN_USER}\n${VPN_PASSWORD}\n" | /opt/cisco/secureclient/bin/vpn -s
 }
 alias cup="cisco_connect"
 alias cdown='/opt/cisco/secureclient/bin/vpn disconnect'
