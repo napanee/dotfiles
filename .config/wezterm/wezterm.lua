@@ -1,6 +1,13 @@
 local wezterm = require 'wezterm'
 local config = wezterm.config_builder()
 
+config.debug_key_events = true
+
+wezterm.on('update-status', function(window, pane)
+  local mods, leds = window:keyboard_modifiers()
+  window:set_right_status('mods=' .. mods .. ' leds=' .. leds)
+end)
+
 config.font = wezterm.font 'SauceCodePro Nerd Font Mono'
 config.font_size = 13
 config.color_scheme = "Vs Code Dark+ (Gogh)"
@@ -84,12 +91,12 @@ wezterm.on(
 config.keys = {
 	{
 		key = 'Enter',
-		mods = 'SUPER | SHIFT',
+		mods = 'CTRL | SHIFT',
 		action = wezterm.action.TogglePaneZoomState,
 	},
 	{
 		key = 'h',
-		mods = 'SUPER | SHIFT',
+		mods = 'CTRL | SHIFT',
 		action = wezterm.action.SplitPane {
 			direction = 'Left',
 			command = { domain = 'CurrentPaneDomain' },
@@ -98,7 +105,7 @@ config.keys = {
 	},
 	{
 		key = 'l',
-		mods = 'SUPER | SHIFT',
+		mods = 'CTRL | SHIFT',
 		action = wezterm.action.SplitPane {
 			direction = 'Right',
 			command = { domain = 'CurrentPaneDomain' },
@@ -107,7 +114,7 @@ config.keys = {
 	},
 	{
 		key = 'j',
-		mods = 'SUPER | SHIFT',
+		mods = 'CTRL | SHIFT',
 		action = wezterm.action.SplitPane {
 			direction = 'Down',
 			command = { domain = 'CurrentPaneDomain' },
@@ -116,13 +123,20 @@ config.keys = {
 	},
 	{
 		key = 'k',
-		mods = 'SUPER | SHIFT',
+		mods = 'CTRL | SHIFT',
 		action = wezterm.action.SplitPane {
 			direction = 'Up',
 			command = { domain = 'CurrentPaneDomain' },
 			size = { Percent = 50 },
 		},
-	}
+	},
+	{
+		key = 't',
+		mods = 'CTRL',
+		action = wezterm.action.SpawnTab {
+			DomainName = 'unix',
+		},
+	},
 }
 
 return config
