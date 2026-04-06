@@ -67,17 +67,6 @@ class ThermalSensor(QtileThermalSensor):
         return '({})'.format(val.replace('.0', ''))
 
 
-class Net(QtileNet):
-
-    def poll(self):
-        path = '/sys/class/net/{}/carrier'.format(self.interface[0])
-        if not os.path.exists(path):
-            return '-'
-        if open(path).read().strip() != '1':
-            return '-'
-        return super().poll()
-
-
 class Battery(QtileBattery):
 
     def build_string(self, status: BatteryStatus) -> str:
@@ -121,11 +110,11 @@ def base(fg='text', bg='primary'):
     }
 
 
-def separator():
-    return widget.Spacer(**base(bg='dark'), length=5)
+def separator(length=5):
+    return widget.Spacer(**base(bg='dark'), length=length)
 
 
-def icon(fg='dark', bg='primary', fontsize=22, text="?", padding=0):
+def icon(fg='text', bg='primary', fontsize=20, text="?", padding=5):
     return widget.TextBox(
         **base(fg, bg),
         fontsize=fontsize,
@@ -133,19 +122,28 @@ def icon(fg='dark', bg='primary', fontsize=22, text="?", padding=0):
         padding=padding
     )
 
-
-def workspaces(): 
+def datetime():
     return [
-        widget.CurrentScreen(**base(bg='dark'), active_text='', inactive_tRext='  ', fontsize=26),
-        icon(text=''),
+        icon(bg='dark', text=''),
+        widget.Clock(**base(bg='dark'), format='%a, %d. %b'),
+        icon(bg='dark', text=''),
+        widget.Clock(**base(bg='dark'), format='%H:%M:%S'),
+    ]
+
+def workspaces():
+    return [
+        widget.CurrentScreen(**base(bg='dark'), active_text='', inactive_text='', fontsize=26),
         widget.GroupBox(
             **base(),
-            borderwidth=2,
+            borderwidth=1,
             active=colors['active'],
             inactive=colors['inactive'],
             rounded=False,
+            fontsize=20,
+            margin_x=0,
+            padding_x=5,
             block_highlight_text_color=colors['active'],
-            highlight_method='line',
+            highlight_method='block',
             highlight_color=colors['primary'],
             urgent_alert_method='block',
             urgent_border=colors['urgent'],
@@ -155,25 +153,23 @@ def workspaces():
             other_screen_border=colors['primary'],
             disable_drag=True
         ),
-        icon(text=''),
         separator(),
         widget.CurrentLayout(
             **base(bg='dark'),
-            custom_icon_paths=['~/.config/qtile/layout-icons/gruvbox-dark0'],
+            custom_icon_paths=['~/.config/qtile/layout-icons/gruvbox-neutral_orange'],
             padding = 0,
-            scale = 0.5,
+            scale = 0.8,
+            mode='icon',
         ),
-        widget.CurrentLayout(**base(bg='dark'), width=100),
-        icon(text='', fg='dark'),
+        separator(),
         widget.WindowName(**base(), empty_group_string = 'Desktop'),
     ]
 
 primary_widgets = [
     *workspaces(),
-    icon(text=''),
-    widget.Systray(**base(bg='dark'), icon_size=16, padding=10),
-    separator(),
-    icon(text=''),
+    widget.Systray(**base(bg='dark'), icon_size=16, padding=5),
+    separator(5),
+    icon(text='󰍛'),
     CPU(**base(), update_interval=2),
     ThermalSensor(
         **base(),
@@ -182,51 +178,44 @@ primary_widgets = [
         update_interval=2,
         foreground_alert=colors['urgent'],
     ),
-    icon(text=''),
-    widget.Net(**base(), format=' {up:6.2f}  {down:6.2f} ', prefix='k'),
+    separator(1),
+    icon(text=''),
     widget.Wlan(
         **base(),
         interface='wlp164s0',
         disconnected_message='(-)',
         update_interval=2,
-        format='({essid}, {percent:1.0%})'
+        format='{essid}, {percent:1.0%}'
     ),
-    icon(text=''),
+    separator(1),
+    icon(text=''),
     widget.Memory(
         **base(),
-        format='󰍛 {MemUsed: .0f} {mm}/{MemTotal: .0f} {mm}  {SwapPercent: .0f}%',
+        format='{MemUsed:.0f}{mm}/{MemTotal:.0f}{mm} {SwapPercent: .0f}%',
         update_interval=5,
         measure_mem='G',
         measure_swap='G',
     ),
-    icon(text=''),
+    separator(1),
     Battery(**base(), format='{percent:2.0%} | {hour:d}:{min:02d}', low_percentage=0.2),
-    icon(text=''),
-    icon(fg='text', text='', padding=5, fontsize=26),
-    # widget.PulseVolume(
-    #     **base(),
-    #     limit_max_volume=True,
-    #     step=5,
-    # ),
-    icon(text=''),
-    icon(fg='text', text='', padding=5, fontsize=26),
+    separator(1),
+    icon(text=''),
+    separator(1),
+    icon(text=''),
     widget.Backlight(**base(), backlight_name='intel_backlight'),
-    icon(text=''),
+    separator(1),
     widget.KeyboardLayout(**base(), configured_keyboards=['us', 'de deadacute']),
-    icon(text=''),
-    widget.Clock(**base(bg='dark'), format='  %a, %d. %b   %H:%M:%S'),
+    *datetime(),
 ]
 
 secondary_widgets = [
     *workspaces(),
-    icon(text=''),
-    widget.Clock(**base(bg='dark'), format='  %a, %d. %b   %H:%M:%S'),
+    *datetime(),
 ]
 
 tertiary_widgets = [
     *workspaces(),
-    icon(text=''),
-    widget.Clock(**base(bg='dark'), format='  %a, %d. %b   %H:%M:%S'),
+    *datetime(),
 ]
 
 widget_defaults = {

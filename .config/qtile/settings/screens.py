@@ -4,47 +4,34 @@ from libqtile.log_utils import logger
 from .widgets import primary_widgets, secondary_widgets, tertiary_widgets
 import subprocess
 
+WALLPAPER = '~/.dotfiles/wallpaper.jpg'
+
 
 def status_bar(widgets):
-    return bar.Bar(widgets, 22, margin=[0,0,0,0])
+    return bar.Bar(widgets, 22, margin=[0, 0, 0, 0])
 
 
-screens = [
-    Screen(
-        top=status_bar(primary_widgets),
-        wallpaper='~/.dotfiles/wallpaper.jpg',
+def make_screen(widgets):
+    return Screen(
+        top=status_bar(widgets),
+        wallpaper=WALLPAPER,
         wallpaper_mode='fill',
     )
-]
 
-xrandr = "xrandr | grep -w 'connected' | cut -d ' ' -f 2 | wc -l"
 
-command = subprocess.run(
-    xrandr,
-    shell=True,
-    stdout=subprocess.PIPE,
-    stderr=subprocess.PIPE,
-)
-
-if command.returncode != 0:
-    error = command.stderr.decode("UTF-8")
-    logger.error(f"Failed counting monitors using {xrandr}:\n{error}")
-    connected_monitors = 1
-else:
-    connected_monitors = int(command.stdout.decode("UTF-8"))
-
-if connected_monitors > 1:
-    screens.append(
-        Screen(
-            top=status_bar(secondary_widgets),
-            wallpaper='~/.dotfiles/wallpaper.jpg',
-            wallpaper_mode='fill',
-        )
+def count_monitors():
+    result = subprocess.run(
+        "xrandr | grep -w 'connected' | cut -d ' ' -f 2 | wc -l",
+        shell=True,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
     )
-    screens.append(
-        Screen(
-            top=status_bar(tertiary_widgets),
-            wallpaper='~/.dotfiles/wallpaper.jpg',
-            wallpaper_mode='fill',
-        )
-    )
+    if result.returncode != 0:
+        logger.error(f"Failed counting monitors:\n{result.stderr.decode()}")
+        return 1
+    return int(result.stdout.decode())
+
+
+_screen_widgets = [primary_widgets, secondary_widgets, tertiary_widgets]
+connected_monitors = count_monitors()
+screens = [make_screen(widgets) for widgets in _screen_widgets[:connected_monitors]]
