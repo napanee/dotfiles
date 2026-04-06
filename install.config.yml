@@ -40,6 +40,10 @@
       path: .oh-my-zsh/
     ~/.powerlevel10k:
       path: .powerlevel10k/
+    ~/.config/wezterm:
+      path: .config/wezterm
+    ~/.ssh/config:
+      path: .ssh/config
 
 - defaults:
     link:
@@ -52,8 +56,6 @@
       path: .config/aerospace
     ~/.config/karabiner/karabiner.json:
       path: .config/karabiner/karabiner.json
-    ~/.config/wezterm:
-      path: .config/wezterm
 
 - defaults:
     link:
