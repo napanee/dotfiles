@@ -3,9 +3,7 @@
 display_count=$(xrandr | grep " connected" | wc -l)
 
 if [ $display_count == 3 ]; then
-    display_desktop
+    autorandr office
 else
-    display_single
+    autorandr single
 fi
-
-qtile cmd-obj -o cmd -f reload_config
