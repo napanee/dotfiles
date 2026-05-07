@@ -36,6 +36,13 @@ alias glog="git log --decorate --graph --pretty=format:\"%C(cyan)%h%Creset %ad b
 alias gst="git status --short --branch"
 alias gprune="git fetch -p && git branch -vv | grep gone | cut -d' ' -f 3 | grep . | xargs git branch -D"
 alias gclean="gprune"
+gch() {
+  if [[ "$1" =~ ^[0-9]+$ ]]; then
+    git checkout @{-"$1"}
+  else
+    echo "❌ Please enter a positive Number, i.e.: gch 2"
+  fi
+}
 
 # Databases
 alias createdb="createdb -h 127.0.0.1 -U postgres"
@@ -52,3 +59,17 @@ case "${unameOut}" in
     MINGW*)     machine=MinGw;;
     *)          machine="UNKNOWN:${unameOut}"
 esac
+
+function gencert() {
+  if [ -z "$1" ]; then
+    echo "Bitte einen Namen angeben (z.B. gencert meinprojekt)"
+    return 1
+  fi
+
+  local NAME="$1"
+  local TARGET_DIR="$HOME/Library/Application Support/mkcert"
+
+  mkcert -key-file "$TARGET_DIR/${NAME}-key.pem" \
+         -cert-file "$TARGET_DIR/${NAME}-cert.pem" \
+         "${NAME}.home"
+}
