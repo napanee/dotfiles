@@ -4,21 +4,22 @@ from .keys import mod, keys
 
 groups = [
     Group('1', label='', layout='monad'),
-    Group('2', label='󰊻', layout='monadWide'),
-    Group('3', label='', layout='max'),
-    Group('4', label='󰎮', layout='monad'),
+    Group('2', label='󰎩', layout='monad'),
+    Group('3', label='󰎬', layout='monadWide'),
+    Group('4', label='󰊻', layout='monadWide'),
     Group('5', label='󰎰', layout='monad'),
-    Group('6', label='󰎵', layout='monad'),
+    Group('6', label='', layout='monad'),
     Group('7', label='󰎸', layout='monad'),
     Group('8', label='󰎻', layout='monad'),
     Group('9', label='󰎾', layout='monad'),
+    Group('0', label='󰎣', layout='monad'),
 ]
 
 # Screen assignments per number of connected screens
 screen_mappings = {
-    1: {'1': 0, '2': 0, '3': 0, '4': 0, '5': 0, '6': 0, '7': 0, '8': 0, '9': 0},
-    2: {'1': 0, '2': 0, '3': 0, '4': 0, '5': 1, '6': 1, '7': 1, '8': 1, '9': 1},
-    3: {'1': 0, '2': 0, '3': 2, '4': 2, '5': 1, '6': 1, '7': 1, '8': 1, '9': 1},
+    1: {'1': 0, '2': 0, '3': 0, '4': 0, '5': 0, '6': 0, '7': 0, '8': 0, '9': 0, '0': 0},
+    2: {'1': 0, '2': 0, '3': 0, '4': 0, '5': 0, '6': 1, '7': 1, '8': 1, '9': 1, '0': 1},
+    3: {'1': 0, '2': 0, '3': 0, '4': 2, '5': 2, '6': 1, '7': 1, '8': 1, '9': 1, '0': 1},
 }
 
 def go_to_group(group_name):

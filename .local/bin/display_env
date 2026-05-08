@@ -2,8 +2,8 @@
 
 display_count=$(xrandr | grep " connected" | wc -l)
 
-if [ $display_count == 3 ]; then
-    autorandr office
-else
-    autorandr single
-fi
+# if [ $display_count == 3 ]; then
+#     autorandr office
+# else
+#     autorandr single
+# fi

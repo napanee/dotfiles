@@ -139,7 +139,7 @@ def workspaces():
             active=colors['active'],
             inactive=colors['inactive'],
             rounded=False,
-            fontsize=20,
+            fontsize=28,
             margin_x=0,
             padding_x=5,
             block_highlight_text_color=colors['active'],
@@ -148,7 +148,7 @@ def workspaces():
             urgent_alert_method='block',
             urgent_border=colors['urgent'],
             this_current_screen_border=colors['focus'],
-            this_screen_border=colors['primary'],
+            this_screen_border=colors['focus'],
             other_current_screen_border=colors['primary'],
             other_screen_border=colors['primary'],
             disable_drag=True
@@ -185,7 +185,7 @@ primary_widgets = [
         interface='wlp164s0',
         disconnected_message='(-)',
         update_interval=2,
-        format='{essid}, {percent:1.0%}'
+        format='{essid} ({ipaddr}), {percent:1.0%}'
     ),
     separator(1),
     icon(text=''),
