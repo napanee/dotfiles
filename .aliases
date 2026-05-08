@@ -67,7 +67,7 @@ function gencert() {
   fi
 
   local NAME="$1"
-  local TARGET_DIR="$HOME/Library/Application Support/mkcert"
+  local TARGET_DIR="$HOME/mkcert"
 
   mkcert -key-file "$TARGET_DIR/${NAME}-key.pem" \
          -cert-file "$TARGET_DIR/${NAME}-cert.pem" \
