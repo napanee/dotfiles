@@ -1,6 +1,18 @@
+clear mod1
+clear mod2
+clear mod3
+
 keycode 108 = Mode_switch NoSymbol Mode_switch
-add Mod2 = Mode_switch
+
+add mod1 = Alt_L Meta_L
+add mod3 = Mode_switch
+
 keycode 30 = u U udiaeresis Udiaeresis
 keycode 32 = o O odiaeresis Odiaeresis
 keycode 38 = a A adiaeresis Adiaeresis
 keycode 39 = s S ssharp
+keycode 14 = 5 percent EuroSign
+keycode 26 = e E EuroSign
+
+add mod2 = Num_Lock
+
