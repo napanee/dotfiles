@@ -22,6 +22,8 @@
       path: .gitignore_global
     ~/.aliases:
       path: .aliases
+    ~/.bash_profile:
+      path: .bash_profile
     ~/.gitmessage:
       path: .gitmessage
     ~/.p10k.zsh:
@@ -44,6 +46,8 @@
       path: .config/wezterm
     ~/.ssh/config:
       path: .ssh/config
+    ~/.zprofile:
+      path: .zprofile
 
 - defaults:
     link:
