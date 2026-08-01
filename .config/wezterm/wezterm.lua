@@ -2,7 +2,6 @@ local wezterm = require("wezterm")
 local config = wezterm.config_builder()
 
 config.debug_key_events = true
-config.term = "wezterm"
 
 wezterm.on("update-status", function(window, pane)
 	local mods, leds = window:keyboard_modifiers()
