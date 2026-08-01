@@ -6,7 +6,7 @@ configuration {
   modi: "window,run,drun,calc,emoji";
 }
 
-@theme "/dev/null"
+//@theme "/dev/null"
 
 * {
   bg: #1e1e2e66;
@@ -79,3 +79,9 @@ prompt {
   background-color: @bg-alt;
   text-color: @fg;
 }
+
+//@theme "/usr/share/rofi/themes/Arc-Dark.rasi"
+
+//@theme "/usr/share/rofi/themes/arthur.rasi"
+
+@theme "/usr/share/rofi/themes/DarkBlue.rasi"
