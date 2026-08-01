@@ -72,6 +72,10 @@ keys = [
     Key([mod, 'shift'], 'd', lazy.spawn('display_desktop')),
     Key([mod, 'shift'], 's', lazy.spawn('display_single')),
 
+    # Screenshots
+    Key([mod, "shift", "control"], 's', lazy.spawn('sh -c \'slop -f "%g" > /tmp/slop_region && maim -g "$(cat /tmp/slop_region)" | xclip -selection clipboard -t image/png\''), desc='Bereich wählen, speichern und Screenshot in die Zwischenablage'),
+    Key([mod, "shift"], 's', lazy.spawn('sh -c \'[ -f /tmp/slop_region ] && maim -g "$(cat /tmp/slop_region)" | xclip -selection clipboard -t image/png\''), desc='Screenshot vom gespeicherten Bereich in die Zwischenablage'),
+
     # Sound
     Key([], 'XF86AudioMute', lazy.spawn('changevolume mute')),
     Key([], 'XF86AudioLowerVolume', lazy.spawn('changevolume down')),
