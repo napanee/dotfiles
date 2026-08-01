@@ -1,0 +1,146 @@
+alias gbranches="git branch --list -a"
+alias glog="git log --decorate --graph --pretty=format:\"%C(cyan)%h%Creset %ad by %Cblue%an%Creset %Cred%s%Creset %Cgreen%d%Creset\" --abbrev-commit --date=relative"
+alias gst="git status --short --branch"
+alias gprune="git fetch -p && git branch -vv | awk '/: gone]/ {print $1}' | xargs -r git branch -D"
+alias gclean="gprune"
+
+function gch() {
+	if [[ "$1" =~ ^[0-9]+$ ]]; then
+		git checkout @{-"$1"}
+	else
+		echo "❌ Please enter a positive Number, i.e.: gch 2"
+	fi
+}
+
+# Create Branch + Worktree
+function gwtcb() {
+	# 1. Check if we are in the root directory (.bare or .git file must exist)
+	if [ ! -d ".bare" ]; then
+		echo "❌ Error: You must run this command from the project root directory!"
+
+		return 1
+	fi
+
+	# 2. Check if new branch name is provided
+	if [ -z "$1" ]; then
+		echo "❌ Please enter branch name! (e.g., gwtab feature/ECOMPR-123 [base-branch])"
+
+		return 1
+	fi
+
+	local new_branch="$1"
+	local base_branch="${2:-dev}" # Defaults to 'dev' if 2nd parameter is missing
+
+	echo "🚀 Creating branch '$new_branch' based on '$base_branch'..."
+	
+	git worktree add -b "$new_branch" "$new_branch" "$base_branch" || return 1
+
+	if [ -d "$base_branch" ]; then
+		if [ -d "$base_branch/node_modules" ]; then
+			echo "📦 Copying node_modules from '$base_branch'..."
+
+			cp -r "$base_branch/node_modules" "$new_branch/"
+		fi
+
+		if [ -d "$base_branch/.husky" ]; then
+			echo "🐶 Copying .husky from '$base_branch'..."
+
+			cp -r "$base_branch/.husky" "$new_branch/"
+		fi
+
+		if [ -f "$base_branch/.env" ]; then
+			echo "🔨 Copying .env from '$base_branch'..."
+
+			cp -r "$base_branch/.env" "$new_branch/"
+		fi
+	fi
+
+	if [ -d ".kiro" ]; then
+		echo "🔗 Linking .kiro from root..."
+
+		ln -s "$PWD/.kiro" "$new_branch/.kiro"
+	fi
+
+	echo "📂 Switching to '$new_branch'..."
+	cd "$new_branch" || return 1
+
+	echo "✅ Worktree '$new_branch' ready to go!"
+}
+
+# Checkout existing Remote-Branch + create Worktree (with Tracking)
+function gwtco() {
+	if [ ! -d ".bare" ]; then
+		echo "❌ Error: You must run this command from the project root directory!"
+
+		return 1
+	fi
+
+	if [ -z "$1" ]; then
+		echo "❌ Please enter branch name! (e.g., gwta feature/ECOMPR-123)"
+
+		return 1
+	fi
+
+	local new_branch="$1"
+	local base_branch="${2:-dev}" # Defaults to 'dev' if 2nd parameter is missing
+
+	echo "🔄 Fetching latest changes from origin..."
+	git fetch origin "$new_branch":"$new_branch" 2>/dev/null || git fetch origin "$new_branch"
+
+	echo "🚀 Checking out '$new_branch' at HEAD..."
+	git worktree add -B "$new_branch" "$new_branch" "origin/$new_branch" || return 1
+	
+	if [ -d "$base_branch" ]; then
+		if [ -f "$base_branch/.env" ]; then
+			echo "🔨 Copying .env from '$base_branch'..."
+
+			cp -r "$base_branch/.env" "$new_branch/"
+		fi
+	fi
+
+	echo "✅ Worktree '$new_branch' ready to go!"
+}
+
+# Update worktree from root (default: dev)
+function gwtpr() {
+	local target="${1:-dev}"
+
+	if [ -d "$target" ]; then
+		echo "🔄 Update Worktree '$target'..."
+
+		git -C "$target" pull --rebase
+	else
+		echo "❌ Folder '$target' doesn't exist!"
+	fi
+}
+
+# Remove and Clean Up the Worktree
+function gwtrm() {
+	if [ -z "$1" ]; then
+		echo "❌ Please enter branch name! (e.g., gwtrm feature/ECOMPR-123)"
+		
+		return 1
+	fi
+
+	git worktree remove "$1"
+}
+
+# Display help and overview for Git Worktree helper functions
+function gwthelp() {
+	echo ""
+	echo "  \033[1;32mGit Worktree Helpers\033[0m"
+	echo "  --------------------"
+	echo "  \033[1;36mgwtab <branch> [base]\033[0m Create branch & worktree (from root, default base: dev)"
+	echo "                   \033[0;90mExample: gwtab feature/123  or  gwtab hotfix/999 main\033[0m"
+	echo ""
+	echo "  \033[1;36mgwta <branch>\033[0m    Checkout an existing remote branch with tracking"
+	echo "                   \033[0;90mExample: gwta feature/ECOMPR-123\033[0m"
+	echo ""
+	echo "  \033[1;36mgwtpr [folder]\033[0m  Pull latest changes with --rebase from root (default: dev)"
+	echo "                   \033[0;90mExample: gwtpr  or  gwtpr main\033[0m"
+	echo ""
+	echo "  \033[1;36mgwtrm <folder>\033[0m  Remove a worktree directory cleanly"
+	echo "                   \033[0;90mExample: gwtrm feature/ECOMPR-123\033[0m"
+	echo ""
+}
+alias gwth="gwthelp";

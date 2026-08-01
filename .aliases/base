@@ -1,6 +1,6 @@
 alias sshnas="ssh martin@192.168.2.2"
 
-alias ip="ipconfig getsummary en0 | grep -o 'yiaddr = .*' | sed 's/^yiaddr = //'"
+# alias ip="ipconfig getsummary en0 | grep -o 'yiaddr = .*' | sed 's/^yiaddr = //'"
 
 alias vup="wg-quick up wg_config"
 alias vdown="wg-quick down wg_config"
@@ -29,20 +29,6 @@ function cisco_connect() {
 alias cup="cisco_connect"
 alias cdown='/opt/cisco/secureclient/bin/vpn disconnect'
 alias cstatus='/opt/cisco/secureclient/bin/vpn state'
-
-# Git:
-alias gbranches="git branch --list -a"
-alias glog="git log --decorate --graph --pretty=format:\"%C(cyan)%h%Creset %ad by %Cblue%an%Creset %Cred%s%Creset %Cgreen%d%Creset\" --abbrev-commit --date=relative"
-alias gst="git status --short --branch"
-alias gprune="git fetch -p && git branch -vv | grep gone | cut -d' ' -f 3 | grep . | xargs git branch -D"
-alias gclean="gprune"
-gch() {
-  if [[ "$1" =~ ^[0-9]+$ ]]; then
-    git checkout @{-"$1"}
-  else
-    echo "❌ Please enter a positive Number, i.e.: gch 2"
-  fi
-}
 
 # Databases
 alias createdb="createdb -h 127.0.0.1 -U postgres"

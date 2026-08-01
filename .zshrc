@@ -5,17 +5,8 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-# If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:/usr/bin:$PATH
-# export PATH=$PATH:./node_modules/.bin
-
-export VOLTA_HOME="$HOME/.volta"
-PATH="$VOLTA_HOME/bin:$PATH"
-
 [[ ":$PATH:" != *":$HOME/bin:"* ]] && PATH="$HOME/bin:${PATH}"
 [[ ":$PATH:" != *":$HOME/.local/bin:"* ]] && PATH="$HOME/.local/bin:${PATH}"
-[[ ":$PATH:" != *":/usr/local/bin:"* ]] && PATH="/usr/local/bin:${PATH}"
-[[ ":$PATH:" != *":/usr/bin:"* ]] && PATH="/usr/bin:${PATH}"
 
 export PATH
 
@@ -32,7 +23,12 @@ if [ "$(tty)" = "/dev/tty1" ]; then
 fi
 
 source ~/.powerlevel10k/powerlevel10k.zsh-theme
-source ~/.aliases
+
+if [ -d "$HOME/.aliases" ]; then
+	for file in "$HOME/.aliases"/*; do
+		[ -r "$file" ] && source "$file"
+	done
+fi
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -100,11 +96,44 @@ source ~/.aliases
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(fzf git gpg-agent node)
+plugins=(fzf git gpg-agent nvm)
+
+# Automatically run `nvm use` when entering a directory that contains a .nvmrc.
+zstyle ':omz:plugins:nvm' autoload yes
+zstyle ':omz:plugins:nvm' silent-autoload yes # suppress nvm's autoload output
 
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
+
+# Automatically add the nearest project's node_modules/.bin to PATH so that
+# locally installed packages can be run without the node_modules/.bin/ prefix.
+# Walks up from the current directory to find the closest node_modules/.bin
+# (i.e. the project root) and swaps it in/out as you change directories.
+# Note: this puts a project's local binaries on your PATH whenever you cd into
+# it, so be mindful when entering untrusted repositories.
+typeset -g _NODE_MODULES_BIN=""
+_update_node_modules_bin() {
+  # Remove the previously added entry, if any.
+  if [[ -n $_NODE_MODULES_BIN ]]; then
+    path=(${path:#$_NODE_MODULES_BIN})
+    _NODE_MODULES_BIN=""
+  fi
+  # Walk up the directory tree looking for node_modules/.bin.
+  local dir=$PWD
+  while true; do
+    if [[ -d $dir/node_modules/.bin ]]; then
+      _NODE_MODULES_BIN=$dir/node_modules/.bin
+      path=($_NODE_MODULES_BIN $path)
+      break
+    fi
+    [[ $dir == / ]] && break
+    dir=${dir:h}
+  done
+}
+autoload -Uz add-zsh-hook
+add-zsh-hook chpwd _update_node_modules_bin
+_update_node_modules_bin  # run once for the starting directory
 
 # export MANPATH="/usr/local/man:$MANPATH"
 
@@ -141,3 +170,5 @@ function y() {
 	fi
 	rm -f -- "$tmp"
 }
+
+[[ "$TERM_PROGRAM" == "kiro" ]] && . "$(kiro --locate-shell-integration-path zsh)"
