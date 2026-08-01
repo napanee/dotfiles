@@ -1,4 +1,4 @@
-- clean: ['~', '~/.config']
+- clean: ["~", "~/.config"]
 
 - create:
     ~/.config:
@@ -36,10 +36,10 @@
       path: .config/tig
     ~/.config/yazi:
       path: .config/yazi
-    ~/.oh-my-zsh/:
-      path: .oh-my-zsh/
+    ~/.oh-my-zsh:
+      path: .oh-my-zsh
     ~/.powerlevel10k:
-      path: .powerlevel10k/
+      path: .powerlevel10k
     ~/.config/wezterm:
       path: .config/wezterm
     ~/.ssh/config:
@@ -47,7 +47,7 @@
 
 - defaults:
     link:
-      if: '[ `uname` = Darwin ]'
+      if: "[ `uname` = Darwin ]"
 
 - link:
     ~/.hammerspoon/init.lua:
@@ -59,7 +59,7 @@
 
 - defaults:
     link:
-      if: '[ `uname` = Linux ]'
+      if: "[ `uname` = Linux ]"
 
 - link:
     ~/.xinitrc:
@@ -72,6 +72,8 @@
       path: .Xresources
     ~/.config/betterlockscreen:
       path: .config/betterlockscreen
+    ~/.screenlayout:
+      path: .screenlayout
     ~/.config/btop:
       path: .config/btop
     ~/.config/dunst:
