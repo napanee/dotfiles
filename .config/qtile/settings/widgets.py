@@ -288,6 +288,14 @@ primary_widgets = [
     *battery_widgets(),
     *backlight_widgets(),
     separator(1),
+    widget.TextBox(
+        **base(),
+        text='󰂯',
+        fontsize=16,
+        padding=3,
+        mouse_callbacks={'Button1': lambda: subprocess.Popen(['rofi-bluetooth'])},
+    ),
+    separator(1),
     widget.KeyboardLayout(**base(), configured_keyboards=['us', 'de deadacute']),
     *datetime(),
 ]
