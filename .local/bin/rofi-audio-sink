@@ -1,0 +1,40 @@
+#!/bin/sh
+
+# Select audio output (sink) via rofi using wpctl/pipewire
+
+# Get all sinks with their IDs and names
+sinks=$(wpctl status | sed -n '/Sinks:/,/Sources:/p' | grep -E '^\s+[*│ ]*[0-9]+\.' | sed 's/^[│ ]*//')
+
+# Build menu: mark active sink with a bullet
+menu=""
+active_row=0
+row=0
+while IFS= read -r line; do
+    if echo "$line" | grep -q '^\*'; then
+        # Active sink
+        name=$(echo "$line" | sed 's/^\*\s*//' | sed 's/\s*\[vol:.*\]//')
+        menu="${menu}● ${name}\n"
+        active_row=$row
+    else
+        name=$(echo "$line" | sed 's/^\s*//' | sed 's/\s*\[vol:.*\]//')
+        menu="${menu}  ${name}\n"
+    fi
+    row=$((row + 1))
+done <<EOF
+$sinks
+EOF
+
+# Show rofi menu
+chosen=$(printf "$menu" | sed '/^$/d' | rofi -dmenu -i -p "Audio Output" -selected-row "$active_row")
+
+[ -z "$chosen" ] && exit 0
+
+# Extract sink ID from selection
+sink_id=$(echo "$chosen" | sed 's/^[● ]*//' | grep -oP '^\d+')
+
+# Set as default sink
+wpctl set-default "$sink_id"
+
+# Notify
+sink_name=$(echo "$chosen" | sed 's/^[● ]*//' | sed 's/^[0-9]*\.\s*//')
+dunstify -a "rofi-audio-sink" -u low -r 9994 -i "/usr/share/icons/Papirus-Dark/48x48/status/notification-audio-volume-high.svg" "Audio Output" "$sink_name" -t 2000
