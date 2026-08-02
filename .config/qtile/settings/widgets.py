@@ -1,4 +1,5 @@
 import os
+import subprocess
 
 from libqtile import widget
 from libqtile.widget.base import BackgroundPoll, ORIENTATION_HORIZONTAL
@@ -7,6 +8,74 @@ from libqtile.widget.battery import Battery as QtileBattery, BatteryStatus, Batt
 from libqtile.widget.sensors import ThermalSensor as QtileThermalSensor
 
 from .theme import colors
+
+
+def has_battery():
+    """Check if a battery is present (laptop)."""
+    return os.path.isdir('/sys/class/power_supply/BAT0')
+
+
+def has_backlight():
+    """Check if backlight control is available (laptop)."""
+    return os.path.isdir('/sys/class/backlight/intel_backlight')
+
+
+class NetworkStatus(BackgroundPoll):
+    """Shows IP address of the primary network interface.
+    If a WiFi connection is active, also shows the SSID."""
+
+    orientations = ORIENTATION_HORIZONTAL
+    defaults = [
+        ('update_interval', 5, 'The update interval.'),
+        ('interfaces', ['enp6s0', 'wlp7s0'], 'Interfaces to check (in priority order).'),
+        ('disconnected_message', '(-)', 'Text when no connection is found.'),
+    ]
+
+    def __init__(self, **config):
+        BackgroundPoll.__init__(self, 'NetworkStatus', **config)
+        self.add_defaults(NetworkStatus.defaults)
+
+    def _get_ip(self, iface):
+        """Get IP address for an interface, or None."""
+        try:
+            out = subprocess.check_output(
+                ['ip', '-4', '-o', 'addr', 'show', iface],
+                stderr=subprocess.DEVNULL
+            ).decode().strip()
+            if out:
+                # format: "2: enp6s0    inet 192.168.1.10/24 ..."
+                return out.split()[3].split('/')[0]
+        except (subprocess.CalledProcessError, IndexError):
+            pass
+        return None
+
+    def _get_ssid(self):
+        """Get current WiFi SSID via iwgetid, or None."""
+        try:
+            out = subprocess.check_output(
+                ['iwgetid', '-r'],
+                stderr=subprocess.DEVNULL
+            ).decode().strip()
+            return out if out else None
+        except (subprocess.CalledProcessError, FileNotFoundError):
+            return None
+
+    def poll(self):
+        # Try each interface in order, return the first one with an IP
+        for iface in self.interfaces:
+            ip = self._get_ip(iface)
+            if ip:
+                # If this is a wireless interface, try to get SSID
+                ssid = None
+                if iface.startswith('wl'):
+                    ssid = self._get_ssid()
+
+                if ssid:
+                    return f'{ssid} ({ip})'
+                else:
+                    return ip
+
+        return self.disconnected_message
 
 
 class CPU(BackgroundPoll):
@@ -165,6 +234,25 @@ def workspaces():
         widget.WindowName(**base(), empty_group_string = 'Desktop'),
     ]
 
+def battery_widgets():
+    """Return battery widgets only if battery hardware is present."""
+    if has_battery():
+        return [
+            separator(1),
+            Battery(**base(), format='{percent:2.0%} | {hour:d}:{min:02d}', low_percentage=0.2),
+        ]
+    return []
+
+def backlight_widgets():
+    """Return backlight widgets only if backlight hardware is present."""
+    if has_backlight():
+        return [
+            separator(1),
+            icon(text=''),
+            widget.Backlight(**base(), backlight_name='intel_backlight'),
+        ]
+    return []
+
 primary_widgets = [
     *workspaces(),
     widget.Systray(**base(bg='dark'), icon_size=16, padding=5),
@@ -180,12 +268,11 @@ primary_widgets = [
     ),
     separator(1),
     icon(text=''),
-    widget.Wlan(
+    NetworkStatus(
         **base(),
-        interface='wlp164s0',
+        interfaces=['enp8s0', 'wlp7s0'],
         disconnected_message='(-)',
-        update_interval=2,
-        format='{essid} ({ipaddr}), {percent:1.0%}'
+        update_interval=5,
     ),
     separator(1),
     icon(text=''),
@@ -197,12 +284,9 @@ primary_widgets = [
         measure_swap='G',
     ),
     separator(1),
-    Battery(**base(), format='{percent:2.0%} | {hour:d}:{min:02d}', low_percentage=0.2),
-    separator(1),
-    icon(text=''),
-    separator(1),
-    icon(text=''),
-    widget.Backlight(**base(), backlight_name='intel_backlight'),
+    icon(text=''),
+    *battery_widgets(),
+    *backlight_widgets(),
     separator(1),
     widget.KeyboardLayout(**base(), configured_keyboards=['us', 'de deadacute']),
     *datetime(),
