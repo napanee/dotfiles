@@ -136,6 +136,40 @@ class ThermalSensor(QtileThermalSensor):
         return '({})'.format(val.replace('.0', ''))
 
 
+class MicStatus(BackgroundPoll):
+    """Shows microphone mute status with colored background.
+    Reads state from a toggle file managed by micmute-toggle script."""
+
+    orientations = ORIENTATION_HORIZONTAL
+    defaults = [
+        ('update_interval', 1, 'The update interval.'),
+        ('active_color', '#98971a', 'Background color when mic is active.'),
+        ('muted_color', '#cc241d', 'Background color when mic is muted.'),
+        ('active_text', '\U000f036c', 'Text when mic is active (nerd font mic icon).'),
+        ('muted_text', '\U000f036d', 'Text when mic is muted (nerd font mic-off icon).'),
+        ('state_file', '/tmp/micmute-state', 'Path to mute state file.'),
+    ]
+
+    def __init__(self, **config):
+        BackgroundPoll.__init__(self, 'MicStatus', **config)
+        self.add_defaults(MicStatus.defaults)
+
+    def poll(self):
+        try:
+            with open(self.state_file) as f:
+                state = f.read().strip()
+            if state == 'muted':
+                self.background = self.muted_color
+                return self.muted_text
+            else:
+                self.background = self.active_color
+                return self.active_text
+        except (OSError, IOError):
+            # No state file yet = assume active
+            self.background = self.active_color
+            return self.active_text
+
+
 class Battery(QtileBattery):
 
     def build_string(self, status: BatteryStatus) -> str:
@@ -300,6 +334,13 @@ primary_widgets = [
         fontsize=16,
         padding=3,
         mouse_callbacks={'Button1': lambda: subprocess.Popen(['rofi-bluetooth'])},
+    ),
+    separator(1),
+    MicStatus(
+        foreground=colors['text'],
+        fontsize=16,
+        padding=5,
+        update_interval=1,
     ),
     separator(1),
     widget.KeyboardLayout(**base(), configured_keyboards=['us', 'de deadacute']),

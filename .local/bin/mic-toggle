@@ -1,0 +1,14 @@
+#!/bin/sh
+
+# Toggle mic mute state tracked via a state file.
+# The Dell SB522A handles mute in firmware, so we just track the toggle.
+
+STATE_FILE="/tmp/micmute-state"
+
+if [ -f "$STATE_FILE" ] && [ "$(cat "$STATE_FILE")" = "muted" ]; then
+    echo "active" > "$STATE_FILE"
+    dunstify -a "micmute" -u low -r 9995 -i "/usr/share/icons/Papirus-Dark/48x48/status/notification-audio-volume-high.svg" "Microphone" "Active" -t 2000
+else
+    echo "muted" > "$STATE_FILE"
+    dunstify -a "micmute" -u low -r 9995 -i "/usr/share/icons/Papirus-Dark/48x48/status/notification-audio-volume-muted.svg" "Microphone" "Muted" -t 2000
+fi

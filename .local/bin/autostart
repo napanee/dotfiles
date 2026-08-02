@@ -17,15 +17,15 @@ nextcloud &
 
 numlockx &
 
-# suspend after 30 minutes of inactivity
-# xidlehook --not-when-audio --not-when-fullscreen --timer 1800 'systemctl suspend-then-hibernate' '' &
+# --- Screen Lock & Power Management ---
+# 10 min lock → +5 min monitor off → +15 min suspend
 xss-lock --transfer-sleep-lock -- betterlockscreen -l &
-xset s 600 900 &
 
-xset +dpms &
-xset dpms 900 900 900 &
+xset +dpms
+xset dpms 900 900 900
 
 xidlehook \
-	--not-when-audio \
 	--not-when-fullscreen \
-	--timer 1800 'systemctl suspend-then-hibernate' '' &
+	--timer 600 'loginctl lock-session' '' \
+	--timer 300 'xset dpms force off' '' \
+	--timer 900 'systemctl suspend-then-hibernate' '' &

@@ -96,6 +96,8 @@
       path: .config/qtile
     ~/.config/rofi:
       path: .config/rofi
+    ~/.config/wireplumber/wireplumber.conf.d:
+      path: .config/wireplumber/wireplumber.conf.d
     ~/.config/terminator:
       path: .config/terminator
     ~/.local/bin:
