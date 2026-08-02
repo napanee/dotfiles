@@ -74,6 +74,8 @@
       path: .xprofile
     ~/.Xresources:
       path: .Xresources
+    ~/.config/autostart/screenlayout.desktop:
+      path: .config/autostart/screenlayout.desktop
     ~/.config/betterlockscreen:
       path: .config/betterlockscreen
     ~/.screenlayout:

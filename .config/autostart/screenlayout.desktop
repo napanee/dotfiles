@@ -1,0 +1,6 @@
+[Desktop Entry]
+Type=Application
+Name=Screen Layout (Auto)
+Comment=Detect connected monitors and apply the matching screen layout
+Exec=/home/martin/.screenlayout/autoselect.sh
+X-GNOME-Autostart-enabled=true
