@@ -1,1 +1,5 @@
 xbindkeys
+
+# DPI und Qt-Skalierung für 4K ohne Scaling
+export QT_AUTO_SCREEN_SCALE_FACTOR=0
+export QT_SCALE_FACTOR=1

@@ -103,5 +103,12 @@ elif [ -n "$HAS_INTERNAL" ]; then
            $OFF_ARGS
 fi
 
+# --- DPI auf 96 setzen (verhindert zu große UI-Elemente auf 4K) ---
+xrandr --dpi 96
+
+# --- Qt-Skalierung deaktivieren ---
+export QT_AUTO_SCREEN_SCALE_FACTOR=0
+export QT_SCALE_FACTOR=1
+
 # --- Qtile Config neu laden ---
 qtile cmd-obj -o cmd -f reload_config 2>/dev/null
