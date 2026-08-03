@@ -5,17 +5,21 @@ alias sshnas="ssh martin@192.168.2.2"
 alias vup="wg-quick up wg_config"
 alias vdown="wg-quick down wg_config"
 
-# security add-generic-password -w <password> -a "vpn-robinson.plusline.de" -s "mschneider"
-function cisco_connect() {
+function vpn_connect() {
   local VPN_HOST="vpn-robinson.plusline.de"
   local VPN_USER="mschneider"
+  local VPN_GROUP="ROBINSON"
   local VPN_PASSWORD=""
 
   if [[ "$OSTYPE" == "darwin"* ]]; then
     # macOS: Use the keyring
+    # security add-generic-password -w <password> -a "vpn-robinson.plusline.de" -s "mschneider"
     VPN_PASSWORD=$(/usr/bin/security find-generic-password -w -a "$VPN_HOST" -s "$VPN_USER")
   elif [[ -f /etc/arch-release ]] || [[ "$OSTYPE" == "linux-gnu"* ]]; then
-    # Arch Linux: Use pass
+    # Linux: Use pass (password-store)
+    # Setup:
+    #   1. pass init <gpg-key-id>
+    #   2. pass insert vpn/mschneider
     VPN_PASSWORD=$(pass vpn/mschneider | head -n 1 | xargs)
   fi
 
@@ -24,11 +28,11 @@ function cisco_connect() {
     return 1
   fi
 
-  printf "connect \"${VPN_HOST}\"\n\n${VPN_USER}\n${VPN_PASSWORD}\n" | /opt/cisco/secureclient/bin/vpn -s
+  echo "$VPN_PASSWORD" | sudo openconnect --user="$VPN_USER" --authgroup="$VPN_GROUP" --background --pid-file=/tmp/openconnect.pid "$VPN_HOST" --passwd-on-stdin
 }
-alias cup="cisco_connect"
-alias cdown='/opt/cisco/secureclient/bin/vpn disconnect'
-alias cstatus='/opt/cisco/secureclient/bin/vpn state'
+alias cup="vpn_connect"
+alias cdown='sudo kill -INT $(cat /tmp/openconnect.pid 2>/dev/null)'
+alias cstatus='pgrep openconnect > /dev/null && echo "VPN: Connected" || echo "VPN: Disconnected"'
 
 # Databases
 alias createdb="createdb -h 127.0.0.1 -U postgres"
