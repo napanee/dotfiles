@@ -18,8 +18,8 @@ nextcloud &
 numlockx &
 
 # --- Screen Lock & Power Management ---
-# 10 min lock → +5 min monitor off → +15 min suspend
-xss-lock --transfer-sleep-lock -- betterlockscreen -l &
+# 10 min lock → +15 min suspend
+xss-lock --transfer-sleep-lock -- xsecurelock &
 
 xset +dpms
 xset dpms 900 900 900
@@ -27,5 +27,4 @@ xset dpms 900 900 900
 xidlehook \
 	--not-when-fullscreen \
 	--timer 600 'loginctl lock-session' '' \
-	--timer 300 'xset dpms force off' '' \
-	--timer 900 'systemctl suspend-then-hibernate' '' &
+	--timer 900 'systemctl suspend' '' &
