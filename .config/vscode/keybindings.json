@@ -1,0 +1,76 @@
+// Place your key bindings in this file to override the defaultsauto[]
+[
+  {
+    "key": "alt+g",
+    "command": "workbench.action.gotoLine",
+  },
+  {
+    "key": "ctrl+g",
+    "command": "-workbench.action.gotoLine",
+  },
+  {
+    "key": "ctrl+g",
+    "command": "editor.action.nextMatchFindAction",
+    "when": "editorFocus && findInputFocussed",
+  },
+  {
+    "key": "enter",
+    "command": "-editor.action.nextMatchFindAction",
+    "when": "editorFocus && findInputFocussed",
+  },
+  {
+    "key": "ctrl+k right",
+    "command": "workbench.action.splitEditorRight",
+  },
+  {
+    "key": "ctrl+k down",
+    "command": "workbench.action.splitEditorDown",
+  },
+  {
+    "key": "ctrl+k left",
+    "command": "workbench.action.splitEditorLeft",
+  },
+  {
+    "key": "ctrl+k up",
+    "command": "workbench.action.splitEditorUp",
+  },
+  {
+    "key": "shift+alt+w",
+    "command": "editor.emmet.action.wrapWithAbbreviation",
+  },
+  {
+    "key": "ctrl+shift+d",
+    "command": "-workbench.view.debug",
+    "when": "viewContainer.workbench.view.debug.enabled",
+  },
+  {
+    "key": "ctrl+k u",
+    "command": "-workbench.action.closeUnmodifiedEditors",
+  },
+  {
+    "key": "ctrl+k u",
+    "command": "editor.action.transformToUppercase",
+  },
+  {
+    "key": "ctrl+k l",
+    "command": "editor.action.transformToLowercase",
+  },
+  {
+    "key": "ctrl+k ctrl+m",
+    "command": "workbench.action.toggleMaximizeEditorGroup",
+    "when": "editorPartMaximizedEditorGroup || editorPartMultipleEditorGroups",
+  },
+  {
+    "key": "ctrl+k ctrl+m",
+    "command": "-workbench.action.toggleMaximizeEditorGroup",
+    "when": "editorPartMaximizedEditorGroup || editorPartMultipleEditorGroups",
+  },
+  {
+    "key": "shift+alt+=",
+    "command": "editor.emmet.action.incrementNumberByOne",
+  },
+  {
+    "key": "shift+alt+-",
+    "command": "editor.emmet.action.decrementNumberByOne",
+  },
+]

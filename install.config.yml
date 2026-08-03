@@ -1,4 +1,4 @@
-- clean: ["~", "~/.config"]
+- clean: ["~", "~/.config", "~/.kiro"]
 
 - create:
     ~/.config:
@@ -14,58 +14,89 @@
       force: true
 
 - link:
+    # Shell
+    ~/.aliases:
+      path: .aliases
+    ~/.bash_profile:
+      path: .bash_profile
+    ~/.p10k.zsh:
+      path: .p10k.zsh
+    ~/.zprofile:
+      path: .zprofile
+    ~/.zshrc:
+      path: .zshrc
+    ~/.oh-my-zsh:
+      path: .oh-my-zsh
+    ~/.powerlevel10k:
+      path: .powerlevel10k
+
+    # Git
     ~/.gitconfig:
       path: .gitconfig
     ~/.gitconfig-work:
       path: .gitconfig-work
     ~/.gitignore_global:
       path: .gitignore_global
-    ~/.aliases:
-      path: .aliases
-    ~/.bash_profile:
-      path: .bash_profile
     ~/.gitmessage:
       path: .gitmessage
-    ~/.p10k.zsh:
-      path: .p10k.zsh
-    ~/.tigrc:
-      path: .tigrc
-    ~/.zshrc:
-      path: .zshrc
-    ~/.gnupg/gpg-agent.conf:
-      path: .gnupg/gpg-agent.conf
     ~/.config/tig:
       path: .config/tig
-    ~/.config/yazi:
-      path: .config/yazi
-    ~/.oh-my-zsh:
-      path: .oh-my-zsh
-    ~/.powerlevel10k:
-      path: .powerlevel10k
-    ~/.config/wezterm:
-      path: .config/wezterm
+    ~/.tigrc:
+      path: .tigrc
+
+    # SSH / GPG
+    ~/.gnupg/gpg-agent.conf:
+      path: .gnupg/gpg-agent.conf
     ~/.ssh/config:
       path: .ssh/config
-    ~/.zprofile:
-      path: .zprofile
+
+    # Terminal
+    ~/.config/wezterm:
+      path: .config/wezterm
+
+    # Editor (VS Code / Kiro)
+    ~/.config/Code/User/keybindings.json:
+      path: .config/vscode/keybindings.json
+    ~/.config/Code/User/settings.json:
+      path: .config/vscode/settings.json
+    ~/.config/Code/User/snippets:
+      path: .config/vscode/snippets
+    ~/.config/Kiro/User/keybindings.json:
+      path: .config/vscode/keybindings.json
+    ~/.config/Kiro/User/settings.json:
+      path: .config/vscode/settings.json
+    ~/.config/Kiro/User/snippets:
+      path: .config/vscode/snippets
+    ~/.kiro/skills:
+      path: .kiro/skills
+    ~/.kiro/steering:
+      path: .kiro/steering
+
+    # File manager
+    ~/.config/yazi:
+      path: .config/yazi
 
 - defaults:
     link:
       if: "[ `uname` = Darwin ]"
 
 - link:
-    ~/.hammerspoon/init.lua:
-      path: .hammerspoon/init.lua
+    # Window Manager
     ~/.config/aerospace:
       path: .config/aerospace
+
+    # Keyboard
     ~/.config/karabiner/karabiner.json:
       path: .config/karabiner/karabiner.json
+    ~/.hammerspoon/init.lua:
+      path: .hammerspoon/init.lua
 
 - defaults:
     link:
       if: "[ `uname` = Linux ]"
 
 - link:
+    # X11
     ~/.xinitrc:
       path: .xinitrc
     ~/.Xmodmap:
@@ -74,31 +105,35 @@
       path: .xprofile
     ~/.Xresources:
       path: .Xresources
+
+    # Window Manager
+    ~/.config/qtile:
+      path: .config/qtile
+
+    # Desktop / System
     ~/.config/autostart/screenlayout.desktop:
       path: .config/autostart/screenlayout.desktop
     ~/.config/betterlockscreen:
       path: .config/betterlockscreen
-    ~/.screenlayout:
-      path: .screenlayout
     ~/.config/btop:
       path: .config/btop
     ~/.config/dunst:
       path: .config/dunst
     ~/.config/picom:
       path: .config/picom
+    ~/.config/rofi:
+      path: .config/rofi
+    ~/.config/wireplumber/wireplumber.conf.d:
+      path: .config/wireplumber/wireplumber.conf.d
+    ~/.local/bin:
+      path: .local/bin/
+    ~/.screenlayout:
+      path: .screenlayout
+
+    # Media / File manager
     ~/.config/lf:
       path: .config/lf
     ~/.config/mpv:
       path: .config/mpv
     ~/.config/ncdu:
       path: .config/ncdu
-    ~/.config/qtile:
-      path: .config/qtile
-    ~/.config/rofi:
-      path: .config/rofi
-    ~/.config/wireplumber/wireplumber.conf.d:
-      path: .config/wireplumber/wireplumber.conf.d
-    ~/.config/terminator:
-      path: .config/terminator
-    ~/.local/bin:
-      path: .local/bin/
