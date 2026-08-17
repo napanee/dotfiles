@@ -137,3 +137,5 @@
       path: .config/mpv
     ~/.config/ncdu:
       path: .config/ncdu
+    ~/.config/Thunar/uca.xml:
+      path: .config/Thunar/uca.xml

@@ -1,0 +1,125 @@
+# Starship prompt config — migrated from Powerlevel10k classic style
+# Two-line prompt with connector lines, flat segments, dark background
+
+format = """
+[╭─](240)$os$directory$git_branch$git_status$fill$status$cmd_duration$jobs$nodejs$context
+[╰─](240) """
+
+# Add blank line before prompt
+add_newline = true
+
+# Fill between left and right segments
+[fill]
+symbol = "─"
+style = "240"
+
+# OS icon (left-most segment)
+[os]
+disabled = false
+style = "bold fg:255 bg:236"
+format = "[$symbol ]($style)"
+
+[os.symbols]
+Linux = ""
+Macos = ""
+Windows = ""
+
+# Current directory
+[directory]
+style = "fg:31 bg:236"
+truncation_length = 1
+truncate_to_repo = true
+fish_style_pwd_dir_length = 0
+format = "[│ $path]($style)[$read_only]($read_only_style) "
+read_only = " 󰌾"
+read_only_style = "fg:160 bg:236"
+
+[directory.substitutions]
+"Documents" = "󰈙 "
+"Downloads" = " "
+"Music" = "󰝚 "
+"Pictures" = " "
+
+# Git branch
+[git_branch]
+symbol = " "
+style = "fg:76 bg:236"
+format = "[│ $symbol$branch(:$remote_branch)]($style) "
+# Truncate branch name at ticket prefix (e.g. feature/ECOMPR-310 ...)
+truncation_length = 32
+truncation_symbol = " …"
+
+# Git status — matches P10k formatter symbols
+[git_status]
+style = "bg:236"
+format = "[$all_status$ahead_behind]($style)"
+conflicted = "[~${count}](fg:196 bg:236) "
+ahead = "[⇡${count}](fg:76 bg:236)"
+behind = "[⇣${count}](fg:76 bg:236)"
+diverged = "[⇣${behind_count}⇡${ahead_count}](fg:76 bg:236) "
+untracked = "[?${count}](fg:39 bg:236) "
+stashed = "[*${count}](fg:76 bg:236) "
+modified = "[!${count}](fg:178 bg:236) "
+staged = "[+${count}](fg:178 bg:236) "
+renamed = "[»${count}](fg:178 bg:236) "
+deleted = "[✘${count}](fg:178 bg:236) "
+
+# Exit code of last command (right side)
+[status]
+disabled = false
+style = "bg:236"
+symbol = "[✘](fg:160 bg:236)"
+success_symbol = "[✔](fg:70 bg:236)"
+format = "[$symbol( $status)]($style) "
+
+# Command execution time (show if > 3s)
+[cmd_duration]
+min_time = 3000
+style = "fg:248 bg:236"
+format = "[│ $duration]($style) "
+show_milliseconds = false
+
+# Background jobs
+[jobs]
+style = "fg:37 bg:236"
+symbol = "✦"
+format = "[│ $symbol$number]($style) "
+threshold = 1
+
+# Node.js version (only in projects with package.json)
+[nodejs]
+style = "fg:70 bg:236"
+format = "[│  $version]($style) "
+detect_files = ["package.json", ".node-version", ".nvmrc"]
+detect_extensions = []
+detect_folders = ["node_modules"]
+
+# Context (user@host) — only show in SSH or as root
+[username]
+show_always = false
+style_user = "fg:180 bg:236"
+style_root = "bold fg:178 bg:236"
+format = "[$user]($style)"
+
+[hostname]
+ssh_only = true
+style = "fg:180 bg:236"
+format = "[@$hostname]($style) "
+
+[context]
+disabled = true
+
+# Vi mode
+[character]
+disabled = true
+
+# Palette reference (not used directly, for documentation):
+# 236 = dark bg
+# 240 = connector lines (grey)
+# 244 = subsegment separator
+# 76/70 = green (clean/success)
+# 178 = yellow (modified)
+# 39 = blue (untracked)
+# 196/160 = red (conflict/error)
+# 248 = light grey (execution time)
+# 31 = directory foreground
