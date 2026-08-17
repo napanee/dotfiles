@@ -1,8 +1,8 @@
 alias gbranches="git branch --list -a"
 alias glog="git log --decorate --graph --pretty=format:\"%C(cyan)%h%Creset %ad by %Cblue%an%Creset %Cred%s%Creset %Cgreen%d%Creset\" --abbrev-commit --date=relative"
 alias gst="git status --short --branch"
-alias gprune="git fetch -p && git branch -vv | awk '/: gone]/ {print $1}' | xargs -r git branch -D"
-alias gclean="gprune"
+alias gprune="git fetch -p && git branch -vv | grep ': gone]' | grep -v '^[+*]' | awk '{print \$1}' | xargs -r git branch -D"
+alias gclean="gwtprune && gprune"
 
 function gch() {
 	if [[ "$1" =~ ^[0-9]+$ ]]; then
@@ -61,6 +61,12 @@ function gwtcb() {
 		ln -s "$PWD/.kiro" "$new_branch/.kiro"
 	fi
 
+	if [ -f "setup-config.sh" ]; then
+		echo "🗂️  Setting up config/ folder..."
+
+		./setup-config.sh "$new_branch"
+	fi
+
 	echo "📂 Switching to '$new_branch'..."
 	cd "$new_branch" || return 1
 
@@ -98,6 +104,12 @@ function gwtco() {
 		fi
 	fi
 
+	if [ -f "setup-config.sh" ]; then
+		echo "🗂️  Setting up config/ folder..."
+
+		./setup-config.sh "$new_branch"
+	fi
+
 	echo "✅ Worktree '$new_branch' ready to go!"
 }
 
@@ -125,15 +137,49 @@ function gwtrm() {
 	git worktree remove "$1"
 }
 
+# Remove worktrees whose remote branch is gone, then delete the local branches
+function gwtprune() {
+	git fetch -p
+
+	git worktree list --porcelain | grep '^worktree ' | awk '{print $2}' | while read -r wt; do
+		# Skip the main/bare worktree
+		[[ "$wt" == "$(git rev-parse --show-toplevel 2>/dev/null || pwd)" ]] && continue
+
+		local branch
+		branch=$(git -C "$wt" rev-parse --abbrev-ref HEAD 2>/dev/null) || continue
+
+		# Check if upstream is gone
+		local upstream
+		upstream=$(git for-each-ref --format='%(upstream:track)' "refs/heads/$branch" 2>/dev/null)
+
+		if [[ "$upstream" == "[gone]" ]]; then
+			echo "🗑️  Removing worktree '$wt' (branch '$branch' is gone on remote)..."
+			git worktree remove --force "$wt" && git branch -D "$branch"
+		fi
+	done
+}
+
+# Rebase current feature worktree onto latest dev (or specified base)
+# Usage: gwtrb [base-branch]
+function gwtrb() {
+  local base="${1:-dev}"
+
+  echo "🔄 Fetching latest '$base' from origin..."
+  git fetch origin "$base" || return 1
+
+  echo "🚀 Rebasing current branch onto 'origin/$base'..."
+  git rebase "origin/$base"
+}
+
 # Display help and overview for Git Worktree helper functions
 function gwthelp() {
 	echo ""
 	echo "  \033[1;32mGit Worktree Helpers\033[0m"
 	echo "  --------------------"
-	echo "  \033[1;36mgwtab <branch> [base]\033[0m Create branch & worktree (from root, default base: dev)"
+	echo "  \033[1;36mgwtcb <branch> [base]\033[0m Create branch & worktree (from root, default base: dev)"
 	echo "                   \033[0;90mExample: gwtab feature/123  or  gwtab hotfix/999 main\033[0m"
 	echo ""
-	echo "  \033[1;36mgwta <branch>\033[0m    Checkout an existing remote branch with tracking"
+	echo "  \033[1;36mgwtco <branch>\033[0m    Checkout an existing remote branch with tracking"
 	echo "                   \033[0;90mExample: gwta feature/ECOMPR-123\033[0m"
 	echo ""
 	echo "  \033[1;36mgwtpr [folder]\033[0m  Pull latest changes with --rebase from root (default: dev)"
@@ -142,5 +188,29 @@ function gwthelp() {
 	echo "  \033[1;36mgwtrm <folder>\033[0m  Remove a worktree directory cleanly"
 	echo "                   \033[0;90mExample: gwtrm feature/ECOMPR-123\033[0m"
 	echo ""
+	echo "  \033[1;36mgwtrb [base]\033[0m    Rebase current branch onto latest base (default: dev)"
+	echo "                   \033[0;90mExample: gwtrb  or  gwtrb main\033[0m"
+	echo ""
+	echo "  \033[1;36mgwtst\033[0m           Show git status for all worktrees with changes"
+	echo ""
+	echo "  \033[1;36mgwtprune\033[0m        Remove worktrees whose remote branch is gone"
+	echo "                   \033[0;90m(Also deletes the corresponding local branches)\033[0m"
+	echo ""
+	echo "  \033[1;36mgclean\033[0m          Run gwtprune + gprune (full cleanup)"
+	echo ""
 }
 alias gwth="gwthelp";
+
+# Show git status for all worktrees
+function gwtst() {
+	git worktree list --porcelain | grep '^worktree ' | cut -d' ' -f2 | while read -r wt; do
+		local wt_status
+		wt_status=$(git -C "$wt" status --short 2>/dev/null)
+
+		if [ -n "$wt_status" ]; then
+			echo "\033[1;36m=== ${wt##*/} ===\033[0m"
+			echo "$wt_status"
+			echo ""
+		fi
+	done
+}
