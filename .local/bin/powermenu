@@ -8,6 +8,6 @@ case "$chosen" in
 	"  Suspend") systemctl suspend-then-hibernate ;;
 	"  Hibernate") systemctl hibernate ;;
 	"󰿅  Log Out") qtile cmd-obj -o cmd -f shutdown ;;
-	"  Lock") betterlockscreen -l ;;
+	"  Lock") xsecurelock ;;
 	*) exit 1 ;;
 esac

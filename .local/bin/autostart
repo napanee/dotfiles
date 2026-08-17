@@ -18,13 +18,11 @@ nextcloud &
 numlockx &
 
 # --- Screen Lock & Power Management ---
-# 10 min lock → +15 min suspend
-xss-lock --transfer-sleep-lock -- xsecurelock &
-
-xset +dpms
-xset dpms 900 900 900
+# xidlehook handles fullscreen detection, lock, dpms, and suspend.
+xset -dpms
+xset s off
 
 xidlehook \
 	--not-when-fullscreen \
-	--timer 600 'loginctl lock-session' '' \
+	--timer 600 'xset dpms 0 0 300; xsecurelock; xset -dpms' '' \
 	--timer 900 'systemctl suspend' '' &
