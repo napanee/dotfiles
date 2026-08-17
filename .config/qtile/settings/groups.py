@@ -8,7 +8,7 @@ groups = [
     Group('3', label='󰎬', layout='monadWide'),
     Group('4', label='󰊻', layout='monadWide'),
     Group('5', label='󰎰', layout='monad'),
-    Group('6', label='', layout='monad'),
+    Group('6', label='', layout='verticalTile'),
     Group('7', label='󰎸', layout='monad'),
     Group('8', label='󰎻', layout='monad'),
     Group('9', label='󰎾', layout='monad'),

@@ -1,6 +1,7 @@
 from libqtile import hook
 
 import os
+import re
 import subprocess
 
 from settings.keys import mod, keys
@@ -48,3 +49,9 @@ def new_window_hook(window):
     if window.floating:
         window.togroup()
         window.cmd_bring_to_front()
+
+
+@hook.subscribe.client_name_updated
+def float_by_title(window):
+    if re.search(r"JDownloader Click.n.Load", window.name or ""):
+        window.floating = True

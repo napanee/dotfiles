@@ -1,3 +1,5 @@
+import re
+
 from libqtile import layout
 from libqtile.config import Match
 
@@ -14,6 +16,7 @@ layout_defaults = dict(
 layouts = [
     layout.MonadTall(name='monad', margin=5, **layout_defaults),
     layout.MonadWide(name='monadWide', margin=5, **layout_defaults),
+    layout.VerticalTile(name='verticalTile', margin=5, **layout_defaults),
     layout.Max(name='max', margin=0),
     layout.TreeTab(
         name='treeTab',
@@ -48,7 +51,6 @@ floating_layout = layout.Floating(
         Match(wm_class='error'),
         Match(wm_class='file_progress'),
         Match(wm_class='notification'),
-        Match(wm_class='Firefox'),
         Match(wm_class='splash'),
         Match(wm_class='toolbar'),
         Match(wm_class='confirmreset'),
@@ -65,7 +67,6 @@ floating_layout = layout.Floating(
         Match(wm_class='com.cisco.secureclient.gui'),
         Match(title='branchdialog'),
         Match(title='pinentry'),
-        Match(title='Terminator Preferences'),
     ],
     **layout_defaults
 )
