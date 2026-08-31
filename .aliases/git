@@ -171,6 +171,20 @@ function gwtrb() {
   git rebase "origin/$base"
 }
 
+# Show git status for all worktrees
+function gwtst() {
+	git worktree list --porcelain | grep '^worktree ' | cut -d' ' -f2 | while read -r wt; do
+		local wt_status
+		wt_status=$(git -C "$wt" status --short 2>/dev/null)
+
+		if [ -n "$wt_status" ]; then
+			echo "\033[1;36m=== ${wt##*/} ===\033[0m"
+			echo "$wt_status"
+			echo ""
+		fi
+	done
+}
+
 # Display help and overview for Git Worktree helper functions
 function gwthelp() {
 	echo ""
@@ -201,16 +215,3 @@ function gwthelp() {
 }
 alias gwth="gwthelp";
 
-# Show git status for all worktrees
-function gwtst() {
-	git worktree list --porcelain | grep '^worktree ' | cut -d' ' -f2 | while read -r wt; do
-		local wt_status
-		wt_status=$(git -C "$wt" status --short 2>/dev/null)
-
-		if [ -n "$wt_status" ]; then
-			echo "\033[1;36m=== ${wt##*/} ===\033[0m"
-			echo "$wt_status"
-			echo ""
-		fi
-	done
-}

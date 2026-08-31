@@ -8,6 +8,7 @@
   "editor.fontFamily": "'SauceCodePro Nerd Font Mono', 'monospace', monospace",
   "editor.fontLigatures": "'ccmp' off",
   "editor.formatOnSave": true,
+  "editor.formatOnSaveMode": "modifications",
   "editor.hover.delay": 800,
   "editor.multiCursorModifier": "ctrlCmd",
   "editor.renderWhitespace": "all",
