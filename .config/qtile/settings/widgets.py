@@ -27,7 +27,7 @@ class NetworkStatus(BackgroundPoll):
     orientations = ORIENTATION_HORIZONTAL
     defaults = [
         ('update_interval', 5, 'The update interval.'),
-        ('interfaces', ['enp6s0', 'wlp7s0'], 'Interfaces to check (in priority order).'),
+        ('interfaces', ['enp6s0', 'wlp7s0', 'wlp164s0'], 'Interfaces to check (in priority order).'),
         ('disconnected_message', '(-)', 'Text when no connection is found.'),
     ]
 
@@ -304,7 +304,7 @@ primary_widgets = [
     icon(text=''),
     NetworkStatus(
         **base(),
-        interfaces=['enp8s0', 'wlp7s0'],
+        interfaces=['enp8s0', 'wlp7s0', 'wlp164s0'],
         disconnected_message='(-)',
         update_interval=5,
     ),
