@@ -113,8 +113,6 @@
     # Desktop / System
     ~/.config/autostart/screenlayout.desktop:
       path: .config/autostart/screenlayout.desktop
-    ~/.config/betterlockscreen:
-      path: .config/betterlockscreen
     ~/.config/btop:
       path: .config/btop
     ~/.config/dunst:
