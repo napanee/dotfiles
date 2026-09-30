@@ -67,10 +67,6 @@
       path: .config/vscode/settings.json
     ~/.config/Kiro/User/snippets:
       path: .config/vscode/snippets
-    ~/.kiro/skills:
-      path: .kiro/skills
-    ~/.kiro/steering:
-      path: .kiro/steering
 
     # File manager
     ~/.config/yazi:
@@ -78,6 +74,8 @@
 
 - defaults:
     link:
+      create: true
+      force: true
       if: "[ `uname` = Darwin ]"
 
 - link:
@@ -93,6 +91,8 @@
 
 - defaults:
     link:
+      create: true
+      force: true
       if: "[ `uname` = Linux ]"
 
 - link:
