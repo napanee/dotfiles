@@ -1,11 +1,6 @@
 from libqtile.config import Screen
 from libqtile import bar
-from libqtile.log_utils import logger
 from .widgets import primary_widgets, secondary_widgets, tertiary_widgets
-import subprocess
-
-WALLPAPER = '~/.dotfiles/wallpaper.jpg'
-
 
 def status_bar(widgets):
     return bar.Bar(widgets, 22, margin=[0, 0, 0, 0])
@@ -14,24 +9,21 @@ def status_bar(widgets):
 def make_screen(widgets):
     return Screen(
         top=status_bar(widgets),
-        wallpaper=WALLPAPER,
-        wallpaper_mode='fill',
     )
 
 
-def count_monitors():
-    result = subprocess.run(
-        "xrandr | grep -w 'connected' | cut -d ' ' -f 2 | wc -l",
-        shell=True,
-        stdout=subprocess.PIPE,
-        stderr=subprocess.PIPE,
-    )
-    if result.returncode != 0:
-        logger.error(f"Failed counting monitors:\n{result.stderr.decode()}")
-        return 1
-    return int(result.stdout.decode())
-
-
+# Always define a Screen for every monitor we could possibly have.
+#
+# Do NOT slice this list by the number of currently-connected monitors:
+# with reconfigure_screens = True, qtile reconfigures screens on every
+# screen_change event (DPMS wake, unlock, xrandr, and notably daisy-chained
+# MST monitors that come up one after another with a delay). If a physical
+# output appears that has no configured Screen, qtile ends up with a Screen
+# that never got a group assigned, which crashes _process_screens with
+# "AttributeError: 'Screen' object has no attribute 'group'" and forces a
+# manual `qtile restart`.
+#
+# By defining all screens up front, qtile assigns groups to the connected
+# outputs and simply leaves the extra screen(s) inactive.
 _screen_widgets = [primary_widgets, secondary_widgets, tertiary_widgets]
-connected_monitors = count_monitors()
-screens = [make_screen(widgets) for widgets in _screen_widgets[:connected_monitors]]
+screens = [make_screen(widgets) for widgets in _screen_widgets]
