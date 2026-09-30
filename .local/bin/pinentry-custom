@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+# sed -u \
+#   -e 's/Please unlock the card/Enter password of yubikey/' \
+#   -e 's/Please enter the PIN of your PIV card/Enter PIN of yubikey/' \
+#   | exec /usr/bin/pinentry-curses "$@"
+
+awk '
+  /^SETDESC/   { piv = /unlock the card/ }
+  piv && /^SETPROMPT/ { sub(/PIN/, "PASSWORD") }
+  {
+    sub(/Please unlock the card/, "Enter PASSWORD of yubikey")
+    sub(/Please enter the PIN of your PIV card/, "Enter PIN of yubikey")
+    print; fflush()
+  }
+' | exec /usr/bin/pinentry-curses "$@"
