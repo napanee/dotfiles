@@ -42,6 +42,45 @@ def has_backlight():
     return os.path.isdir('/sys/class/backlight/intel_backlight')
 
 
+def _is_wireless(iface):
+    """Return True if the given network interface is a WiFi device.
+
+    The kernel exposes a 'wireless' subdirectory (and a 'phy80211' symlink)
+    under /sys/class/net/<iface> only for wireless interfaces.
+    """
+    base = os.path.join('/sys/class/net', iface)
+    return (os.path.isdir(os.path.join(base, 'wireless'))
+            or os.path.exists(os.path.join(base, 'phy80211')))
+
+
+def find_interfaces():
+    """Return network interfaces in priority order (ethernet first, then WiFi).
+
+    Scans /sys/class/net, skips the loopback and virtual interfaces, and
+    orders real ethernet interfaces before wireless ones so a wired
+    connection is preferred. Falls back to an empty list on error.
+    """
+    base_dir = '/sys/class/net'
+    try:
+        names = sorted(os.listdir(base_dir))
+    except OSError:
+        return []
+
+    ethernet, wireless = [], []
+    for name in names:
+        if name == 'lo':
+            continue
+        # Skip virtual interfaces (no device symlink), e.g. docker0, veth, br-*
+        if not os.path.exists(os.path.join(base_dir, name, 'device')):
+            continue
+        if _is_wireless(name):
+            wireless.append(name)
+        else:
+            ethernet.append(name)
+
+    return ethernet + wireless
+
+
 class NetworkStatus(BackgroundPoll):
     """Shows IP address of the primary network interface.
     If a WiFi connection is active, also shows the SSID."""
@@ -49,7 +88,8 @@ class NetworkStatus(BackgroundPoll):
     orientations = ORIENTATION_HORIZONTAL
     defaults = [
         ('update_interval', 5, 'The update interval.'),
-        ('interfaces', ['enp6s0', 'wlp7s0', 'wlp164s0'], 'Interfaces to check (in priority order).'),
+        ('interfaces', None, 'Interfaces to check (in priority order). '
+         'If None, they are auto-detected from /sys/class/net.'),
         ('disconnected_message', '(-)', 'Text when no connection is found.'),
     ]
 
@@ -72,7 +112,26 @@ class NetworkStatus(BackgroundPoll):
         return None
 
     def _get_ssid(self):
-        """Get current WiFi SSID via iwgetid, or None."""
+        """Get current WiFi SSID, or None.
+
+        Prefers nmcli (works reliably when NetworkManager owns the
+        connection) and falls back to iwgetid on systems without it.
+        """
+        # nmcli: list active connections, pick the active wifi one
+        try:
+            out = subprocess.check_output(
+                ['nmcli', '-t', '-f', 'ACTIVE,SSID', 'dev', 'wifi'],
+                stderr=subprocess.DEVNULL
+            ).decode()
+            for line in out.splitlines():
+                # format: "yes:MySSID" / "no:OtherSSID"
+                active, _, ssid = line.partition(':')
+                if active == 'yes' and ssid:
+                    return ssid
+        except (subprocess.CalledProcessError, FileNotFoundError):
+            pass
+
+        # Fallback: iwgetid (wireless-extensions based)
         try:
             out = subprocess.check_output(
                 ['iwgetid', '-r'],
@@ -83,13 +142,16 @@ class NetworkStatus(BackgroundPoll):
             return None
 
     def poll(self):
+        # Auto-detect interfaces each poll so hotplugged devices are picked up.
+        interfaces = self.interfaces if self.interfaces else find_interfaces()
+
         # Try each interface in order, return the first one with an IP
-        for iface in self.interfaces:
+        for iface in interfaces:
             ip = self._get_ip(iface)
             if ip:
                 # If this is a wireless interface, try to get SSID
                 ssid = None
-                if iface.startswith('wl'):
+                if _is_wireless(iface):
                     ssid = self._get_ssid()
 
                 if ssid:
@@ -327,7 +389,6 @@ primary_widgets = [
     icon(text=''),
     NetworkStatus(
         **base(),
-        interfaces=['enp8s0', 'wlp7s0', 'wlp164s0'],
         disconnected_message='(-)',
         update_interval=5,
     ),
