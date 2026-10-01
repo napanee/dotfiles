@@ -131,8 +131,6 @@
       path: .screenlayout
 
     # Media / File manager
-    ~/.config/lf:
-      path: .config/lf
     ~/.config/mpv:
       path: .config/mpv
     ~/.config/ncdu:
