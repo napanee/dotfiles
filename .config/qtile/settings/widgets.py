@@ -10,9 +10,31 @@ from libqtile.widget.sensors import ThermalSensor as QtileThermalSensor
 from .theme import colors
 
 
+def find_battery():
+    """Return the name of the first battery (e.g. 'BAT0', 'BAT1'), or None.
+
+    Scans /sys/class/power_supply and returns the first entry whose `type`
+    is 'Battery', so it works regardless of the battery's index.
+    """
+    base_dir = '/sys/class/power_supply'
+    try:
+        names = sorted(os.listdir(base_dir))
+    except OSError:
+        return None
+    for name in names:
+        type_path = os.path.join(base_dir, name, 'type')
+        try:
+            with open(type_path) as f:
+                if f.read().strip() == 'Battery':
+                    return name
+        except OSError:
+            continue
+    return None
+
+
 def has_battery():
     """Check if a battery is present (laptop)."""
-    return os.path.isdir('/sys/class/power_supply/BAT0')
+    return find_battery() is not None
 
 
 def has_backlight():
@@ -270,10 +292,11 @@ def workspaces():
 
 def battery_widgets():
     """Return battery widgets only if battery hardware is present."""
-    if has_battery():
+    name = find_battery()
+    if name:
         return [
             separator(1),
-            Battery(**base(), format='{percent:2.0%} | {hour:d}:{min:02d}', low_percentage=0.2),
+            Battery(**base(), battery=name, format='{percent:2.0%} | {hour:d}:{min:02d}', low_percentage=0.2),
         ]
     return []
 
