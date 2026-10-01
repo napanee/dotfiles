@@ -1,28 +1,39 @@
 #!/bin/sh
 
-# Increment or decrement the brightness and send a notification
-# of the current brightness level.
+# Increment or decrement the brightness by a percentage step and send a
+# notification of the current brightness level.
+#
+# Usage: changebacklight up|down [step_percent]
+#   step_percent defaults to 5
+#
+# Honours $BACKLIGHT to target a specific device; otherwise brightnessctl
+# picks its default backlight device.
+
+step_percent=${2:-5}
+
+[ -n "$BACKLIGHT" ] && set -- "$1" --device "$BACKLIGHT"
+device_arg=${BACKLIGHT:+--device "$BACKLIGHT"}
 
 send_notification() {
-	brightness=$(cat /sys/class/backlight/intel_backlight/brightness)
-	brightness=$(expr $brightness \* 100 / 96000)
-	dunstify -a "changebrightness" -u low -r 9992 -h int:value:"$brightness" -i "brightness-$1" "Brightness: ${brightness}%" -t 2000
+	# -m yields "current,class,percent,raw,max"; grab the percentage field.
+	percent=$(brightnessctl $device_arg -m i | cut -d, -f4 | tr -d '%')
+	dunstify -a "changebrightness" -u low -r 9992 \
+		-h int:value:"$percent" -i "brightness-$1" \
+		"Brightness: ${percent}%" -t 2000
 }
 
 case $1 in
 up)
-	brightness=$(cat /sys/class/backlight/intel_backlight/brightness)
-	brightness=$(expr $brightness + 4800)
-	brightness=$(( $brightness > 96000 ? 96000 : $brightness ))
-	echo $brightness > /sys/class/backlight/intel_backlight/brightness
+	brightnessctl $device_arg set "${step_percent}%+" >/dev/null
 	send_notification "$1"
 	;;
 down)
-	brightness=$(cat /sys/class/backlight/intel_backlight/brightness)
-	brightness=$(expr $brightness - 4800)
-	brightness=$(( $brightness < 0 ? 0 : $brightness ))
-	echo $brightness > /sys/class/backlight/intel_backlight/brightness
+	# -n keeps a floor of 1 so the screen never goes fully dark.
+	brightnessctl $device_arg set "${step_percent}%-" -n >/dev/null
 	send_notification "$1"
 	;;
+*)
+	echo "Usage: changebacklight up|down [step_percent]" >&2
+	exit 1
+	;;
 esac
-
