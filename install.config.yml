@@ -117,6 +117,8 @@
       path: .config/btop
     ~/.config/dunst:
       path: .config/dunst
+    ~/.config/gtk-3.0:
+      path: .config/gtk-3.0
     ~/.config/picom:
       path: .config/picom
     ~/.config/rofi:
