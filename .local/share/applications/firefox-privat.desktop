@@ -1,0 +1,14 @@
+[Desktop Entry]
+Version=1.0
+Name=Firefox – Privat
+GenericName=Web Browser
+Comment=Firefox mit Profil Privat
+Exec=firefox -P Privat --class firefox-privat %u
+Icon=firefox
+Terminal=false
+Type=Application
+MimeType=text/html;text/xml;application/xhtml+xml;x-scheme-handler/http;x-scheme-handler/https;
+Categories=Network;WebBrowser;
+StartupNotify=true
+StartupWMClass=firefox-privat
+Keywords=firefox;privat;browser;

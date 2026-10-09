@@ -1,0 +1,14 @@
+[Desktop Entry]
+Version=1.0
+Name=Firefox – Robinson
+GenericName=Web Browser
+Comment=Firefox mit Profil Robinson
+Exec=firefox -P Robinson --class firefox-robinson %u
+Icon=firefox
+Terminal=false
+Type=Application
+MimeType=text/html;text/xml;application/xhtml+xml;x-scheme-handler/http;x-scheme-handler/https;
+Categories=Network;WebBrowser;
+StartupNotify=true
+StartupWMClass=firefox-robinson
+Keywords=firefox;robinson;browser;

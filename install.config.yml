@@ -130,6 +130,14 @@
     ~/.screenlayout:
       path: .screenlayout
 
+    # Application launchers (rofi drun)
+    ~/.local/share/applications/firefox.desktop:
+      path: .local/share/applications/firefox.desktop
+    ~/.local/share/applications/firefox-privat.desktop:
+      path: .local/share/applications/firefox-privat.desktop
+    ~/.local/share/applications/firefox-robinson.desktop:
+      path: .local/share/applications/firefox-robinson.desktop
+
     # Media / File manager
     ~/.config/mpv:
       path: .config/mpv
