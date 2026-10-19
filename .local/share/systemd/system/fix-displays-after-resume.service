@@ -1,0 +1,15 @@
+[Unit]
+Description=Fix MST displays after resume (xe driver workaround)
+After=suspend.target
+
+[Service]
+Type=oneshot
+User=martin
+# picom wird vom Skript via setsid gestartet und an init re-parented.
+# KillMode=process stellt sicher, dass systemd beim Ende dieses oneshot
+# NUR den Hauptprozess (das Skript) beendet und picom weiterlaeuft.
+KillMode=process
+ExecStart=/home/martin/.local/bin/fix-displays-after-resume
+
+[Install]
+WantedBy=suspend.target

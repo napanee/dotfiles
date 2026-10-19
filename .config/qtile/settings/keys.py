@@ -55,8 +55,8 @@ keys = [
 
     Key([mod], 'f', lazy.window.toggle_fullscreen()),
     Key([mod, 'shift'], 'f', lazy.window.toggle_floating()),
-    Key([mod], 'r', lazy.layout.reset()),
-    Key([mod, 'shift'], 'r', lazy.reload_config()),
+    # Key([mod], 'r', lazy.layout.reset()),
+    Key([mod], 'r', lazy.reload_config()),
 
     # Apps runner
     Key([mod, 'shift'], 'Return', lazy.spawn('wezterm')),
@@ -65,17 +65,18 @@ keys = [
     Key([mod, 'shift'], 'w', lazy.spawn('rofi -show window')),
     Key([mod, 'shift'], 'e', lazy.spawn('rofi -show emoji')),
     # Key([mod, 'shift'], 'w', lazy.spawn('wifimenu')),
-    Key([mod, 'shift'], 'b', lazy.spawn('google-chrome-stable')),
-    Key([mod, 'shift'], 'l', lazy.spawn('xsecurelock')),
+    Key([mod, 'shift'], 'b', lazy.spawn('firefox')),
+
+    Key([mod, 'shift'], 'l', lazy.spawn('lock')),
 
     # Change display setup
     Key([mod, 'shift'], 'd', lazy.spawn('display_desktop')),
     # Key([mod, "control"], 's', lazy.spawn('display_single')),
 
     # Screenshots
-    Key([mod, "shift", "control"], 's', lazy.spawn('sh -c \'slop -f "%g" > /tmp/slop_region && maim -g "$(cat /tmp/slop_region)" | xclip -selection clipboard -t image/png\''), desc='Bereich wählen, speichern und Screenshot in die Zwischenablage'),
-    Key([mod, "shift"], 's', lazy.spawn('sh -c \'[ -f /tmp/slop_region ] && maim -g "$(cat /tmp/slop_region)" | xclip -selection clipboard -t image/png\''), desc='Screenshot vom gespeicherten Bereich in die Zwischenablage'),
-    Key([mod, "mod1", "shift"], 's', lazy.spawn('sh -c \'[ -f /tmp/slop_region ] && maim -g "$(cat /tmp/slop_region)" ~/Documents/screenshot_$(date +%Y%m%d_%H%M%S).png\''), desc='Screenshot vom gespeicherten Bereich als Datei in ~/Documents'),
+    Key([mod, "shift", "control"], 's', lazy.spawn('sh -c \'slop -f "%g" > "$XDG_RUNTIME_DIR/slop_region" && maim -g "$(cat "$XDG_RUNTIME_DIR/slop_region")" | copyq copy image/png -\''), desc='Bereich wählen und Screenshot in die Zwischenablage'),
+    Key([mod, "shift"], 's', lazy.spawn('sh -c \'[ -f "$XDG_RUNTIME_DIR/slop_region" ] && maim -g "$(cat "$XDG_RUNTIME_DIR/slop_region")" | copyq copy image/png -\''), desc='Screenshot vom gespeicherten Bereich in die Zwischenablage'),
+    Key([mod, "mod1", "shift"], 's', lazy.spawn('sh -c \'[ -f "$XDG_RUNTIME_DIR/slop_region" ] && maim -g "$(cat "$XDG_RUNTIME_DIR/slop_region")" ~/Documents/screenshot_$(date +%Y%m%d_%H%M%S).png\''), desc='Screenshot vom gespeicherten Bereich als Datei in ~/Documents'),
 
     # Sound
     Key([], 'XF86AudioMute', lazy.spawn('changevolume mute')),

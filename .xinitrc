@@ -4,6 +4,9 @@
 #xrandr --output eDP-1 --mode 1920x1080 --pos 6000x1868 --rotate normal --output DP-1 --off --output HDMI-1 --off --output DP-2 --mode 3840x2160 --pos 0x0 --rotate left --output HDMI-2 --off --output DP-3 --off --output HDMI-3 --off --output DP-1-8 --primary --mode 3840x2160 --pos 2160x958 --rotate normal --output DP-1-1 --off
 dbus-update-activation-environment --systemd DISPLAY XAUTHORITY
 
-autostart &
+# Umgebungsvariablen der Session laden (XCURSOR_SIZE, Qt-Skalierung ...).
+# startx/xinit sourcen .xprofile nicht automatisch (das macht nur ein
+# Display-Manager), daher hier explizit vor dem WM-Start.
+[ -f ~/.xprofile ] && . ~/.xprofile
 
 exec qtile start

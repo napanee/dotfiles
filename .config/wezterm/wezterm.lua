@@ -10,21 +10,22 @@ end)
 
 config.font = wezterm.font("SauceCodePro Nerd Font Mono")
 config.font_size = 13
-config.color_scheme = "Vs Code Dark+ (Gogh)"
-config.colors = {
-	tab_bar = {
-		background = "#000000",
-	},
-}
+-- config.color_scheme = "Vs Code Dark+ (Gogh)"
+-- config.color_scheme = "Dark+"
+-- config.colors = {
+-- 	tab_bar = {
+-- 		background = "#000000",
+-- 	},
+-- }
 
-config.inactive_pane_hsb = {
-	saturation = 0,
-	brightness = 0.8,
-}
+-- config.inactive_pane_hsb = {
+-- 	saturation = 0,
+-- 	brightness = 0.8,
+-- }
 
 -- config.enable_tab_bar = false
 config.window_decorations = "RESIZE"
-config.window_background_opacity = 0.95
+config.window_background_opacity = 0.8
 config.macos_window_background_blur = 20
 
 config.use_fancy_tab_bar = false

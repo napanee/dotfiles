@@ -57,9 +57,14 @@ function gencert() {
   fi
 
   local NAME="$1"
-  local TARGET_DIR="$HOME/mkcert"
+  local TARGET_DIR="$(mkcert -CAROOT)"
 
   mkcert -key-file "$TARGET_DIR/${NAME}-key.pem" \
          -cert-file "$TARGET_DIR/${NAME}-cert.pem" \
-         "${NAME}.home"
+         "${NAME}.home" \
+         "*.${NAME}.home" \
+         "${NAME}.local" \
+         "*.${NAME}.local" \
+         "${NAME}.arpa" \
+         "*.${NAME}.arpa"
 }

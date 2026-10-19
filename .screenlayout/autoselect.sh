@@ -59,6 +59,8 @@ for line in output_text.splitlines():
 OUTPUT_PRIMARY=$(get_output_for_serial "$SERIAL_PRIMARY")
 OUTPUT_PORTRAIT=$(get_output_for_serial "$SERIAL_PORTRAIT")
 
+# echo $OUTPUT_PRIMARY
+
 # Hat das System ein eingebautes Display (Laptop)?
 HAS_INTERNAL=$(xrandr --query | grep "^eDP" | grep " connected" | awk '{print $1}')
 
@@ -85,7 +87,16 @@ elif [ -n "$OUTPUT_PRIMARY" ] && [ -n "$OUTPUT_PORTRAIT" ] && [ -n "$HAS_INTERNA
             OFF_ARGS="$OFF_ARGS --output $out --off"
         fi
     done
-    xrandr --output "$HAS_INTERNAL" --mode 1920x1080 --pos 6000x2185 --rotate normal \
+    # Eventuell haengende Scale/Transform auf dem Laptop-Output zuruecksetzen,
+    # BEVOR das Layout gesetzt wird. In einem kombinierten xrandr-Aufruf wird
+    # die alte Transform sonst bei der Framebuffer-Berechnung noch angewandt
+    # -> BadMatch bei RRSetScreenSize. Als eigener Aufruf greift es sauber.
+    xrandr --output "$HAS_INTERNAL" --transform none
+
+    # Laptop (1920x1200) unten buendig mit dem Portrait-Monitor (y-Ende 3840):
+    # 3840 - 1920 = 1920. Verhindert, dass der Laptop unter den Framebuffer-
+    # Rand ragt.
+    xrandr --output "$HAS_INTERNAL" --mode 1920x1200 --pos 6000x1920 --rotate normal \
            --output "$OUTPUT_PORTRAIT" --mode 3840x2160 --pos 0x0 --rotate left \
            --output "$OUTPUT_PRIMARY" --primary --mode 3840x2160 --pos 2160x840 --rotate normal \
            $OFF_ARGS
@@ -99,7 +110,7 @@ elif [ -n "$HAS_INTERNAL" ]; then
             OFF_ARGS="$OFF_ARGS --output $out --off"
         fi
     done
-    xrandr --output "$HAS_INTERNAL" --primary --mode 1920x1080 --pos 0x0 --rotate normal \
+    xrandr --output "$HAS_INTERNAL" --primary --mode 1920x1200 --pos 0x0 --rotate normal \
            $OFF_ARGS
 fi
 
@@ -110,5 +121,8 @@ xrandr --dpi 96
 export QT_AUTO_SCREEN_SCALE_FACTOR=0
 export QT_SCALE_FACTOR=1
 
-# --- Qtile Config neu laden ---
-qtile cmd-obj -o cmd -f reload_config 2>/dev/null
+# --- Qtile Screens neu einlesen ---
+# reconfigure_screens laedt die neuen Monitor-Geometrien ein (noetig nach
+# Layout-Wechsel). reload_config allein wuerde nur die Python-Config neu
+# laden, aber die Screen-Rects nicht aktualisieren.
+qtile cmd-obj -o cmd -f reconfigure_screens 2>/dev/null

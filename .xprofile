@@ -1,3 +1,7 @@
 # DPI und Qt-Skalierung für 4K ohne Scaling
 export QT_AUTO_SCREEN_SCALE_FACTOR=0
 export QT_SCALE_FACTOR=1
+
+# Cursor-Größe für die gesamte X-Session (greift auch für qtiles Root-Cursor
+# auf dem 4K-Display, bevor der WM startet).
+export XCURSOR_SIZE=16

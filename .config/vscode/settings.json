@@ -140,4 +140,7 @@
   },
   "redhat.telemetry.enabled": false,
   "workbench.iconTheme": "material-icon-theme",
+  "kiroAgent.workflows.enabled": true,
+  "workbench.colorTheme": "Dark+",
+  "kiroAgent.trust.defaultScope": "user",
 }

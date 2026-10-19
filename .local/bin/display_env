@@ -1,9 +1,5 @@
 #!/bin/sh
 
-display_count=$(xrandr | grep " connected" | wc -l)
-
-# if [ $display_count == 3 ]; then
-#     autorandr office
-# else
-#     autorandr single
-# fi
+# Dynamische Monitor-Erkennung + passendes Layout setzen (inkl.
+# reconfigure_screens am Ende des Skripts).
+"$HOME/.screenlayout/autoselect.sh"

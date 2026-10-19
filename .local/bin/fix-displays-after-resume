@@ -1,0 +1,36 @@
+#!/bin/sh
+# Stellt nach Suspend/Resume den Grafik-Zustand wieder her:
+#   1) Display-Layout dynamisch neu setzen (autoselect.sh via display_env).
+#      Nach Resume kommt der xe-Treiber (Pantherlake) oder das eDP-Panel
+#      haeufig im zuruckgesetzten Mode zurueck ("Failed to get ACT",
+#      eDP faellt auf 2880x1920). autoselect.sh erkennt die aktuelle
+#      Monitor-Konstellation anhand der EDID-Serien und setzt das passende
+#      Layout -- deckt Desktop, Laptop+Monitore und Laptop-only ab.
+#   2) picom neu starten -- der Compositor ueberlebt den Modeset-Reset nicht.
+#
+# Wird vom SYSTEM-Service /etc/systemd/system/fix-displays-after-resume.service
+# nach suspend.target gestartet. Der Service laeuft als User=martin, aber OHNE
+# Session-Umgebung (kein DISPLAY, XAUTHORITY, XDG_RUNTIME_DIR, DBUS). Deshalb:
+#   - DISPLAY/XAUTHORITY hier explizit setzen (fuer xrandr/picom auf :0),
+#   - PATH um ~/.local/bin ergaenzen (sonst 'display_env' not found),
+#   - KEIN 'systemd-run --user' (es gibt keinen erreichbaren user-Bus) ->
+#     picom mit setsid vom Service-cgroup loesen.
+
+export DISPLAY="${DISPLAY:-:0}"
+export XAUTHORITY="${XAUTHORITY:-$HOME/.Xauthority}"
+export PATH="$HOME/.local/bin:$PATH"
+
+# Kurz warten, bis die (MST-)Links nach Resume wieder angemeldet sind.
+sleep 2
+
+# 1) Layout dynamisch neu anwenden.
+display_env
+
+# 2) Compositor neu starten.
+#    setsid startet picom in einer eigenen Session, damit er nicht mit dem
+#    oneshot-Service terminiert. Die Unit nutzt zusaetzlich KillMode=process,
+#    sodass systemd beim Service-Ende nur den Hauptprozess (dieses Skript)
+#    beendet und picom weiterlaeuft.
+pkill -x picom
+sleep 1
+setsid picom -b

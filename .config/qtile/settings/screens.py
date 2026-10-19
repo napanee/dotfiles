@@ -1,6 +1,9 @@
 from libqtile.config import Screen
 from libqtile import bar
+from libqtile.log_utils import logger
 from .widgets import primary_widgets, secondary_widgets, tertiary_widgets
+import subprocess
+
 
 def status_bar(widgets):
     return bar.Bar(widgets, 22, margin=[0, 0, 0, 0])
