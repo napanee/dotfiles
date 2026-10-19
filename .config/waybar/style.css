@@ -1,0 +1,59 @@
+/* Waybar-Style im Gruvbox-Look (passend zum qtile-Theme). */
+
+* {
+    font-family: "JetBrainsMono Nerd Font", "Symbols Nerd Font", monospace;
+    font-size: 13px;
+    border: none;
+    border-radius: 0;
+    min-height: 0;
+}
+
+window#waybar {
+    background-color: #282828;
+    color: #ebdbb2;
+}
+
+#workspaces button {
+    padding: 0 8px;
+    color: #a89984;
+    background-color: transparent;
+}
+
+#workspaces button.active {
+    color: #282828;
+    background-color: #83a598;
+}
+
+#workspaces button.urgent {
+    color: #282828;
+    background-color: #fb4934;
+}
+
+#workspaces button:hover {
+    color: #ebdbb2;
+    background-color: #3c3836;
+}
+
+#window {
+    color: #d5c4a1;
+}
+
+#clock,
+#pulseaudio,
+#battery,
+#tray {
+    padding: 0 10px;
+    color: #ebdbb2;
+}
+
+#battery.warning {
+    color: #fabd2f;
+}
+
+#battery.critical {
+    color: #fb4934;
+}
+
+#pulseaudio.muted {
+    color: #928374;
+}
