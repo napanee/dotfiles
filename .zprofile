@@ -2,6 +2,6 @@
 
 export PATH
 
-if [ -z "$DISPLAY" ] && [ "$(tty)" = "/dev/tty1" ] && command -v startx >/dev/null 2>&1; then
-  exec startx
+if [ "$(tty)" = "/dev/tty1" ] && command -v Hyprland >/dev/null 2>&1; then
+  exec Hyprland
 fi

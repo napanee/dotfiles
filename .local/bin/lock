@@ -1,21 +1,11 @@
 #!/bin/sh
 #
-# Zentraler Lock-Wrapper um xsecurelock.
+# Zentraler Lock-Wrapper fuer Hyprland/Wayland.
 #
-# Fix fuer picom als Compositor: Laut xsecurelock-README entfernt picom
-# seine Fenster nicht in der benoetigten Reihenfolge. Dadurch kann das
-# Sperrfenster auf einzelnen Monitoren nicht greifen (ein Monitor zeigt
-# weiter den Desktop) bzw. es erscheint "INCOMPATIBLE COMPOSITOR".
+# Ersetzt den alten xsecurelock-Wrapper (X11). Unter Wayland uebernimmt
+# hyprlock das Sperren; Konfiguration in ~/.config/hypr/hyprlock.conf.
 #
-# Empfohlener Fix (README):
-#   - Composite-Obscurer abschalten: XSECURELOCK_COMPOSITE_OBSCURER=0
-#   - Falls weiterhin Compositor-Artefakte: XSECURELOCK_NO_COMPOSITE=1
-#     schaltet die Transparenz-Behandlung komplett ab.
+# pidof-Check verhindert, dass mehrere hyprlock-Instanzen gestartet werden
+# (z.B. wenn loginctl lock-session und ein manueller Aufruf zusammenfallen).
 
-# Picom-spezifisch: Obscurer-Fenster nicht zeichnen.
-export XSECURELOCK_COMPOSITE_OBSCURER=0
-
-# Transparenz-Behandlung komplett abschalten (robust gegen Compositor-Bugs).
-export XSECURELOCK_NO_COMPOSITE=1
-
-exec xsecurelock
+exec hyprlock

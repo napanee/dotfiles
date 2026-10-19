@@ -18,8 +18,7 @@ export PGPASSWORD=postgres
 export ZSH="$HOME/.oh-my-zsh"
 
 if [ "$(tty)" = "/dev/tty1" ]; then
-	startx 2> ~/.startx-stderr.log
-	logout
+	exec Hyprland
 fi
 
 source ~/.powerlevel10k/powerlevel10k.zsh-theme
