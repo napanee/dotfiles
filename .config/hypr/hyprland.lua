@@ -13,23 +13,25 @@
 -- ohne kanshi-Profil ein Bild erscheint.
 hl.monitor({ output = "", mode = "preferred", position = "auto", scale = 1 })
 
--- Workspace-zu-Monitor-Zuordnung (uebernommen aus qtile screen_mappings[3]).
--- qtile Screen 0 = DP-2, Screen 1 = DP-1, Screen 2 = eDP-1.
---   DP-2  (SUPER+Q): Workspaces 1-3
---   eDP-1 (SUPER+E): Workspaces 4-5
---   DP-1  (SUPER+W): Workspaces 6-9
--- Hinweis: Monitor-Namen ggf. mit `hyprctl monitors` pruefen. Fehlt ein Monitor
--- (z.B. nur 1-2 angeschlossen), landen dessen Workspaces automatisch auf einem
--- vorhandenen Monitor.
-hl.workspace_rule({ workspace = "1", monitor = "DP-2", default = true })
-hl.workspace_rule({ workspace = "2", monitor = "DP-2" })
-hl.workspace_rule({ workspace = "3", monitor = "DP-2" })
-hl.workspace_rule({ workspace = "4", layout_opts = { orientation = "top" }, monitor = "eDP-1", default = true })
-hl.workspace_rule({ workspace = "5", layout_opts = { orientation = "top" }, monitor = "eDP-1" })
-hl.workspace_rule({ workspace = "6", monitor = "DP-1", default = true })
-hl.workspace_rule({ workspace = "7", monitor = "DP-1" })
-hl.workspace_rule({ workspace = "8", monitor = "DP-1" })
-hl.workspace_rule({ workspace = "9", monitor = "DP-1" })
+-- Workspace-zu-Monitor-Zuordnung per EDID-/Serial-Match (desc:) statt
+-- Port-Name, da DP-Namen (DP-4/DP-5/...) unter MST/Daisy-Chain instabil sind.
+-- Descriptions via `hyprctl monitors` ausgelesen und verifiziert.
+--   U3225QE (Primary 4K)   : Workspaces 1-3
+--   U2723QE (Hochkant 270) : Workspaces 4-5  (monadWide, orientation top)
+--   eDP-1   (Laptop)       : Workspaces 6-9
+local mon_primary  = "desc:Dell Inc. DELL U3225QE D02G684"
+local mon_portrait = "desc:Dell Inc. DELL U2723QE C55F2H3"
+local mon_laptop   = "eDP-1"
+
+hl.workspace_rule({ workspace = "1", monitor = mon_primary, default = true })
+hl.workspace_rule({ workspace = "2", monitor = mon_primary })
+hl.workspace_rule({ workspace = "3", monitor = mon_primary })
+hl.workspace_rule({ workspace = "4", layout_opts = { orientation = "top" }, monitor = mon_portrait, default = true })
+hl.workspace_rule({ workspace = "5", layout_opts = { orientation = "top" }, monitor = mon_portrait })
+hl.workspace_rule({ workspace = "6", monitor = mon_laptop, default = true })
+hl.workspace_rule({ workspace = "7", monitor = mon_laptop })
+hl.workspace_rule({ workspace = "8", monitor = mon_laptop })
+hl.workspace_rule({ workspace = "9", monitor = mon_laptop })
 
 -------------------
 --- ENVIRONMENT ---
@@ -92,7 +94,7 @@ hl.config({
 
     decoration = {
         rounding = 0,
-        inactive_opacity = 0.9,
+        inactive_opacity = 0.8,
         shadow = {
             enabled = false
         }
@@ -200,12 +202,11 @@ for i = 1, 9 do
 end
 
 -- Monitor-Fokus (ersetzt qtile to_screen(2/0/1) fuer q/w/e)
--- TODO: Monitor-Namen am lebenden System pruefen (`hyprctl monitors`); unter
--- MST/Daisy-Chain koennen sich die Output-Namen aendern. Ggf. auf Richtungen
--- (l/r/u/d) oder konkrete Namen anpassen.
-hl.bind(mod .. " + Q", hl.dsp.focus({ monitor = "DP-2" }))
-hl.bind(mod .. " + W", hl.dsp.focus({ monitor = "DP-1" }))
-hl.bind(mod .. " + E", hl.dsp.focus({ monitor = "eDP-1" }))
+-- Monitor-Fokus per desc: (gleiche robuste Zuordnung wie die workspace_rules).
+--   Q -> U3225QE (Primary), W -> U2723QE (Hochkant), E -> eDP-1 (Laptop)
+hl.bind(mod .. " + Q", hl.dsp.focus({ monitor = mon_primary }))
+hl.bind(mod .. " + W", hl.dsp.focus({ monitor = mon_portrait }))
+hl.bind(mod .. " + E", hl.dsp.focus({ monitor = mon_laptop }))
 
 -- Screenshots (grim/slurp/wl-copy statt slop/maim/copyq)
 -- sh -c fuehrt die Pipe / $() zur Laufzeit aus; einfache Lua-Strings lassen
