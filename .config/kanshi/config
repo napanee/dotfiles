@@ -11,27 +11,22 @@
 # kanshi matcht standardmaessig die vollstaendige description-Zeile, z.B.
 #     "Dell Inc. DELL U3225QE D02G684".
 #
-# Portrait-Transform: 270 = "rotate left" aus xrandr. Einmal visuell
-# verifizieren; ggf. auf 90 wechseln.
+# Portrait-Transform: 90 = "rotate right". (270 stand auf dem Kopf.)
 
 # Dell U3225QE, Serial D02G684  -> Primary 4K, normal
-# Dell U2723QE, Serial C55F2H3  -> Portrait 4K, rotate left (transform 270)
+# Dell U2723QE, Serial C55F2H3  -> Portrait 4K, rotate right (transform 90)
 # eDP-1                         -> Laptop-Panel 1920x1200
 
 # --- Desktop: beide externen Monitore, kein Laptop-Panel ---
 profile desktop {
-    # TODO: description am lebenden System auslesen (hyprctl monitors / wlr-randr).
-    output "Dell Inc. DELL U3225QE D02G684" mode 3840x2160 position 2160,840 transform normal
-    # TODO: description am lebenden System auslesen (hyprctl monitors / wlr-randr).
-    output "Dell Inc. DELL U2723QE C55F2H3" mode 3840x2160 position 0,0 transform 270
+    output "Dell Inc. DELL U3225QE D02G684" mode 3840x2160 position 2160,840 transform normal scale 1
+    output "Dell Inc. DELL U2723QE C55F2H3" mode 3840x2160 position 0,0 transform 90 scale 1
 }
 
 # --- Laptop + beide externen Monitore ---
 profile office {
-    # TODO: description am lebenden System auslesen (hyprctl monitors / wlr-randr).
-    output "Dell Inc. DELL U3225QE D02G684" mode 3840x2160 position 2160,840 transform normal
-    # TODO: description am lebenden System auslesen (hyprctl monitors / wlr-randr).
-    output "Dell Inc. DELL U2723QE C55F2H3" mode 3840x2160 position 0,0 transform 270
+    output "Dell Inc. DELL U3225QE D02G684" mode 3840x2160 position 2160,840 transform normal scale 1
+    output "Dell Inc. DELL U2723QE C55F2H3" mode 3840x2160 position 0,0 transform 90 scale 1
     output eDP-1 mode 3840x2160 position 6000,1920 transform normal scale 2
 }
 
