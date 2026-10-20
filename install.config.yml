@@ -17,8 +17,6 @@
     # Shell
     ~/.aliases:
       path: .aliases
-    ~/.bash_profile:
-      path: .bash_profile
     ~/.p10k.zsh:
       path: .p10k.zsh
     ~/.zprofile:
@@ -101,6 +99,8 @@
       path: .config/hypr
     ~/.config/kanshi:
       path: .config/kanshi
+    ~/.config/waybar:
+      path: .config/waybar
 
     # Desktop / System
     ~/.config/btop:
