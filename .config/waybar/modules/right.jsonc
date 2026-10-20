@@ -46,24 +46,24 @@
   },
 
   "clock": {
-    "interval": 1,
-    "format": "<span letter_spacing='1024'> </span>{:%a %d. %b <span letter_spacing='1024'> </span>%H:%M:%S}",
-    "tooltip-format": "<tt>{calendar}</tt>",
-    "calendar": {
-      "mode": "year",
-      "mode-mon-col": 3,
-      "weeks-pos": "left",
-      "first-day-of-week": 1,
-      "iso8601": true,
-      "on-scroll": 1,
-      "on-click-right": "mode",
-      "format": {
-        "months": "<span color='#ffead3'><b>{}</b></span>",
-        "days": "<span color='#ecc6d9'><b>{}</b></span>",
-        "weeks": "<span color='#99ffdd'><b>W{}</b></span>",
-        "weekdays": "<span color='#ffcc66'><b>{}</b></span>",
-        "today": "<span color='#ff6699'><b><u>{}</u></b></span>"
-      }
-    }
-  }
+		"interval": 1,
+		"format": "<span letter_spacing='1024'> </span>{:%a %d. %b<span letter_spacing='1024'> </span><span letter_spacing='1024'> </span>%H:%M:%S}",
+		"tooltip-format": "<tt>{calendar}</tt>",
+		"calendar": {
+			"mode": "year",
+			"mode-mon-col": 3,
+			"weeks-pos": "left",
+			"first-day-of-week": 1,
+			"iso8601": true,
+			"on-scroll": 1,
+			"on-click-right": "mode",
+			"format": {
+				"months": "<span color='#ffead3'><b>{}</b></span>",
+				"days": "<span color='#ecc6d9'><b>{}</b></span>",
+				"weeks": "<span color='#99ffdd'><b>W{}</b></span>",
+				"weekdays": "<span color='#ffcc66'><b>{}</b></span>",
+				"today": "<span color='#ff6699'><b><u>{}</u></b></span>"
+			}
+		}
+	}
 }
