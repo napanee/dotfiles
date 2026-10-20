@@ -1,78 +1,86 @@
 {
-    // Waybar-Konfiguration fuer Hyprland.
-    // Workspace-Icons uebernommen aus qtile groups.py.
-    "layer": "top",
-    "position": "top",
-    "height": 28,
-    "spacing": 6,
+  // Waybar-Konfiguration fuer Hyprland.
+  // Workspace-Icons uebernommen aus qtile groups.py.
+  "layer": "top",
+  "position": "top",
+  "height": 28,
+  "spacing": 0,
 
-    "modules-left": ["hyprland/workspaces"],
-    "modules-center": ["hyprland/window"],
-    "modules-right": ["pulseaudio", "battery", "clock", "tray"],
+  "modules-left": ["hyprland/workspaces"],
+  "modules-center": ["hyprland/window"],
+  "modules-right": ["tray", "network", "pulseaudio", "battery", "clock"],
 
-    "hyprland/workspaces": {
-        // Zeigt pro Monitor nur dessen Workspaces (siehe workspace=...,monitor:...).
-        "format": "{icon}",
-        "on-click": "activate",
-        "sort-by-number": true,
-        "persistent-workspaces": {
-            "1": [],
-            "2": [],
-            "3": [],
-            "4": [],
-            "5": [],
-            "6": [],
-            "7": [],
-            "8": [],
-            "9": []
-        },
-        // Icons aus qtile: Group('1', label='') usw.
-        "format-icons": {
-            "1": "",
-            "2": "󰎩",
-            "3": "󰎬",
-            "4": "󰊻",
-            "5": "󰎰",
-            "6": "",
-            "7": "󰎸",
-            "8": "󰎻",
-            "9": "󰎾",
-            "default": ""
-        }
+  "hyprland/workspaces": {
+    // Zeigt pro Monitor nur dessen Workspaces (siehe workspace=...,monitor:...).
+    "format": "{icon}",
+    "on-click": "activate",
+    "sort-by-number": true,
+    "persistent-workspaces": {
+      "1": [],
+      "2": [],
+      "3": [],
+      "4": [],
+      "5": [],
+      "6": [],
+      "7": [],
+      "8": [],
+      "9": [],
     },
-
-    "hyprland/window": {
-        "format": "{title}",
-        "max-length": 80,
-        "separate-outputs": true
+    // Icons aus qtile: Group('1', label='') usw.
+    "format-icons": {
+      "1": "",
+      "2": "󰎩",
+      "3": "󰎬",
+      "4": "󰊻",
+      "5": "󰎰",
+      "6": "",
+      "7": "󰎸",
+      "8": "󰎻",
+      "9": "󰎾",
+      "default": "",
     },
+  },
 
-    "clock": {
-        "format": "{:%a %d.%m. %H:%M}",
-        "tooltip-format": "<tt>{calendar}</tt>"
+  "hyprland/window": {
+    "format": "{title}",
+    "max-length": 80,
+    "separate-outputs": true,
+  },
+
+  "clock": {
+    "interval": 1,
+    "format": "  {:%a %d. %b    %H:%M:%S}",
+    "tooltip-format": "<tt>{calendar}</tt>",
+  },
+
+  "pulseaudio": {
+    "format": "{icon} {volume}%",
+    "format-muted": "󰝟 muted",
+    "format-icons": {
+      "default": ["󰕿", "󰖀", "󰕾"],
     },
+    "on-click": "changevolume mute",
+    "scroll-step": 5,
+  },
 
-    "pulseaudio": {
-        "format": "{icon} {volume}%",
-        "format-muted": "󰝟 muted",
-        "format-icons": {
-            "default": ["󰕿", "󰖀", "󰕾"]
-        },
-        "on-click": "changevolume mute",
-        "scroll-step": 5
+  "battery": {
+    "format": "{icon} {capacity}%",
+    "format-charging": "󰂄 {capacity}%",
+    "format-icons": ["󰁺", "󰁼", "󰁾", "󰂀", "󰁹"],
+    "states": {
+      "warning": 20,
+      "critical": 10,
     },
+  },
 
-    "battery": {
-        "format": "{icon} {capacity}%",
-        "format-charging": "󰂄 {capacity}%",
-        "format-icons": ["󰁺", "󰁼", "󰁾", "󰂀", "󰁹"],
-        "states": {
-            "warning": 20,
-            "critical": 10
-        }
-    },
+  "tray": {
+    "spacing": 8,
+  },
 
-    "tray": {
-        "spacing": 8
-    }
+  "network": {
+    "format": "{ifname}",
+    "format-wifi": "  {essid} ({ipaddr})",
+    "format-ethernet": " {ifname}",
+    "format-disconnected": "",
+  },
 }
