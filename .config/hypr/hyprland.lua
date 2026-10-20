@@ -71,6 +71,8 @@ hl.on("hyprland.start", function()
     hl.exec_cmd("kanshi")
     hl.exec_cmd("dunst")
     hl.exec_cmd("waybar")
+    hl.exec_cmd("sh -c 'sleep 2 && enpass'")
+    hl.exec_cmd("sh -c 'sleep 2 && nextcloud --background'")
     hl.exec_cmd("gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'")
 end)
 
