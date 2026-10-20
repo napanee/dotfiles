@@ -5,35 +5,40 @@
        dann SauceCodePro fuer Text/Ziffern. Pango waehlt pro Glyph die erste
        Font, die es kann -> Icons = Symbols NF, Buchstaben = SauceCodePro. */
     font-family: "Symbols Nerd Font", "SauceCodePro Nerd Font Mono", monospace;
-    font-size: 12px;
+    font-size: 13px;
     border: none;
     border-radius: 0;
     min-height: 0;
 }
 
 window#waybar {
-    background-color: #232323;
+    background-color: rgba(29, 32, 33, 0.8);
+    /* background-color: rgba(255, 255, 255, 1); */
     color: #ebdbb2;
 }
 
 .modules-left,
 .modules-center,
 .modules-right {
-    padding: 1px 0;
+    padding: 5px 0;
 }
 
 #workspaces button {
-    padding: 0 2px;
+    margin-left: -5px;
+    padding: 1px 7px 2px;
+    border-radius: 4px;
     color: #a89984;
     background-color: transparent;
 }
 
 #workspaces button label {
-    font-size: 14px;
+    font-size: 16px;
+    letter-spacing: 1px;
 }
 
-#workspaces button.active {
-    color: #282828;
+#workspaces button.active.hosting-monitor,
+#workspaces button.visible.hosting-monitor {
+    color: #fff;
     background-color: #D65D0E;
 }
 
@@ -53,11 +58,13 @@ window#waybar {
 
 #custom-archicon {
     padding: 0 8px;
-    color: #83a598;   /* Arch-Logo blau (Gruvbox) */
+    color: #0088CC;
+    font-size: 18px;
 }
 
 #custom-layout {
-    padding: 0 8px;
+    padding: 2px 8px 0;
+    font-size: 16px;
 }
 
 #custom-layout.master {

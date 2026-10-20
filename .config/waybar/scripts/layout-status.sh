@@ -8,10 +8,10 @@ layout="$(hyprctl activeworkspace -j 2>/dev/null | jq -r '.tiledLayout // "maste
 
 case "$layout" in
     monocle)
-        printf '{"text":"󰊓","tooltip":"Monocle","class":"monocle"}\n'
+        printf '{"text":"󰁌","tooltip":"Monocle","class":"monocle"}\n'
         ;;
     master)
-        printf '{"text":"󰙀","tooltip":"Master","class":"master"}\n'
+        printf '{"text":"","tooltip":"Master","class":"master"}\n'
         ;;
     *)
         # Fallback fuer andere Layouts (dwindle, scrolling, ...).
