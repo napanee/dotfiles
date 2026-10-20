@@ -23,7 +23,7 @@ config.font_size = 13
 -- 	brightness = 0.8,
 -- }
 
-config.enable_tab_bar = false
+config.enable_tab_bar = true
 config.window_decorations = "NONE"
 config.window_background_opacity = 0.8
 config.macos_window_background_blur = 20
