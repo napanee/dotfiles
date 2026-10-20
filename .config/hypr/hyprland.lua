@@ -24,8 +24,8 @@ hl.monitor({ output = "", mode = "preferred", position = "auto", scale = 1 })
 hl.workspace_rule({ workspace = "1", monitor = "DP-2", default = true })
 hl.workspace_rule({ workspace = "2", monitor = "DP-2" })
 hl.workspace_rule({ workspace = "3", monitor = "DP-2" })
-hl.workspace_rule({ workspace = "4", monitor = "eDP-1", default = true })
-hl.workspace_rule({ workspace = "5", monitor = "eDP-1" })
+hl.workspace_rule({ workspace = "4", layout_opts = { orientation = "top" }, monitor = "eDP-1", default = true })
+hl.workspace_rule({ workspace = "5", layout_opts = { orientation = "top" }, monitor = "eDP-1" })
 hl.workspace_rule({ workspace = "6", monitor = "DP-1", default = true })
 hl.workspace_rule({ workspace = "7", monitor = "DP-1" })
 hl.workspace_rule({ workspace = "8", monitor = "DP-1" })
@@ -53,9 +53,9 @@ hl.config({
         kb_variant = "altgr-intl",
         kb_options = "ctrl:swap_lalt_lctl",
         numlock_by_default = true,
-        follow_mouse = 2
+        follow_mouse = 2,
         touchpad = {
-            tap_to_click = true,   -- legacy 'tap-to-click' -> 'tap_to_click'
+            tap_to_click = true,
         },
     },
 })
@@ -84,14 +84,16 @@ hl.config({
         gaps_in     = 2,
         gaps_out    = 4,
         border_size = 1,
-        col.active_border = rgba(D65D0EFF),
-        col.active_border = rgba(FFFFFFFF),
+        col = {
+            active_border   = "rgba(d65d0eff)",
+            inactive_border = "rgba(595959aa)",
+        },
     },
 
     decoration = {
         rounding = 0,
         inactive_opacity = 0.9,
-        shadow {
+        shadow = {
             enabled = false
         }
     },
@@ -100,10 +102,13 @@ hl.config({
         orientation = "left",
         mfact       = 0.5,
     },
-})
 
-hl.workspace_rule({ workspace = "4", layout_opts = { orientation = "top" } })
-hl.workspace_rule({ workspace = "5", layout_opts = { orientation = "top" } })
+    misc = {
+        -- Festes eingebautes Wallpaper (/usr/share/hypr/wall2.png) statt
+        -- zufaelliger Auswahl (-1). 0 = keins, 1 = wall1, 2 = wall2.
+        force_default_wallpaper = 2,
+    },
+})
 
 --------------------
 --- WINDOW RULES ---
@@ -122,7 +127,7 @@ hl.window_rule({
 --- ANIMATIONS ---
 ------------------
 
-hl.animation({ leaf = "workspaces", enabled = true, speed = 8, style = "slide" })
+hl.animation({ leaf = "workspaces", enabled = true, speed = 5, spring = "default", style = "fade" })
 
 -------------------
 --- KEYBINDINGS ---
@@ -144,8 +149,27 @@ hl.bind(mod .. " + SHIFT + L",      hl.dsp.exec_cmd("loginctl lock-session"))
 -- Window management
 hl.bind(mod .. " + SHIFT + X",      hl.dsp.window.close())
 hl.bind(mod .. " + F",              hl.dsp.window.fullscreen({ mode = "fullscreen" }))
-hl.bind(mod .. " + Slash",          hl.dsp.window.fullscreen_state({ internal = 1, client = 0 }))
 hl.bind(mod .. " + SHIFT + F",      hl.dsp.window.float({ action = "toggle" }))
+
+-- Layout pro Workspace setzen (qtile: feste Layout-Shortcuts, kein Cycle).
+--   Comma  -> master, orientation left (monad)
+--   Period -> master, orientation top  (monadWide)
+--   Slash  -> monocle                  (max)
+local function set_ws_layout(layout, orientation)
+    return function()
+        local ws = hl.get_active_workspace()
+        if not ws then return end
+        local spec = { workspace = "name:" .. tostring(ws.name), layout = layout }
+        if orientation then
+            spec.layout_opts = { orientation = orientation }
+        end
+        hl.workspace_rule(spec)
+    end
+end
+
+hl.bind(mod .. " + Comma",          set_ws_layout("master", "left"))
+hl.bind(mod .. " + Period",         set_ws_layout("master", "top"))
+hl.bind(mod .. " + Slash",          set_ws_layout("monocle"))
 
 -- Layout management
 hl.bind(mod .. " + Return",         hl.dsp.layout("swapwithmaster"))
@@ -158,12 +182,13 @@ hl.bind(mod .. " + SHIFT + Up",     hl.dsp.layout("swapprev"))
 hl.bind(mod .. " + SHIFT + J",      hl.dsp.layout("addmaster"))
 hl.bind(mod .. " + SHIFT + K",      hl.dsp.layout("removemaster"))
 
--- Mouse: Resize / Move windows
-hl.bind("SUPER + mouse:272",        window.drag())
-hl.bind("SUPER + mouse:273",        window.resize())
+-- Mouse: Move / Resize windows (qtile: SUPER + Drag)
+hl.bind(mod .. " + mouse:272", hl.dsp.window.drag(),   { mouse = true })
+hl.bind(mod .. " + mouse:273", hl.dsp.window.resize(), { mouse = true })
 
 -- Reload / Exit
 hl.bind(mod .. " + CTRL + R",       hl.dsp.exec_cmd("hyprctl reload"))
+hl.bind(mod .. " + SHIFT + R",      hl.dsp.exec_cmd("sh -c 'killall waybar; sleep 0.3; waybar'"))
 hl.bind(mod .. " + CTRL + Q",       hl.dsp.exit())
 
 -- Workspaces (ersetzt qtile groups 1-9)
