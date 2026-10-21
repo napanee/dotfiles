@@ -1,0 +1,8 @@
+{
+	"custom/current-layout": {
+		"exec": "~/.config/waybar/scripts/layout-status.sh",
+		"return-type": "json",
+		"interval": 1,
+		"tooltip": true
+	}
+}

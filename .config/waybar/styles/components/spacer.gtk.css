@@ -1,0 +1,8 @@
+@import "../constants.gtk.css";
+
+#custom-spacer {
+	min-width: 2px;
+	margin: 3px 8px;
+	font-size: 0;
+	background-color: alpha(@fg, 0.5);
+}

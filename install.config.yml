@@ -17,8 +17,6 @@
     # Shell
     ~/.aliases:
       path: .aliases
-    ~/.bash_profile:
-      path: .bash_profile
     ~/.p10k.zsh:
       path: .p10k.zsh
     ~/.zprofile:
@@ -96,39 +94,27 @@
       if: "[ `uname` = Linux ]"
 
 - link:
-    # X11
-    ~/.xinitrc:
-      path: .xinitrc
-    ~/.Xmodmap:
-      path: .Xmodmap
-    ~/.xprofile:
-      path: .xprofile
-    ~/.Xresources:
-      path: .Xresources
-
-    # Window Manager
-    ~/.config/qtile:
-      path: .config/qtile
+    # Window Manager (Wayland / Hyprland)
+    ~/.config/hypr:
+      path: .config/hypr
+    ~/.config/kanshi:
+      path: .config/kanshi
+    ~/.config/waybar:
+      path: .config/waybar
 
     # Desktop / System
-    ~/.config/autostart/screenlayout.desktop:
-      path: .config/autostart/screenlayout.desktop
     ~/.config/btop:
       path: .config/btop
     ~/.config/dunst:
       path: .config/dunst
     ~/.config/gtk-3.0:
       path: .config/gtk-3.0
-    ~/.config/picom:
-      path: .config/picom
     ~/.config/rofi:
       path: .config/rofi
     ~/.config/wireplumber/wireplumber.conf.d:
       path: .config/wireplumber/wireplumber.conf.d
     ~/.local/bin:
       path: .local/bin/
-    ~/.screenlayout:
-      path: .screenlayout
 
     # Application launchers (rofi drun)
     ~/.local/share/applications/firefox.desktop:

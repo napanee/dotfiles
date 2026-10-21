@@ -17,11 +17,6 @@ export PGPASSWORD=postgres
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 
-if [ "$(tty)" = "/dev/tty1" ]; then
-	startx 2> ~/.startx-stderr.log
-	logout
-fi
-
 source ~/.powerlevel10k/powerlevel10k.zsh-theme
 
 if [ -d "$HOME/.aliases" ]; then

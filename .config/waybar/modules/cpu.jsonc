@@ -1,0 +1,6 @@
+{
+	"cpu": {
+		"interval": 10,
+		"format": "<span letter_spacing='1024'> </span>{load:.0f}%"
+	}
+}

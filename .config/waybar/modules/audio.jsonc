@@ -1,0 +1,11 @@
+{
+	"pulseaudio": {
+		"format": "{icon}<span letter_spacing='1024'> </span>{volume}%",
+		"format-muted": "󰝟<span letter_spacing='1024'> </span>muted",
+		"format-icons": {
+			"default": ["󰕿", "󰖀", "󰕾"]
+		},
+		"on-click": "changevolume mute",
+		"scroll-step": 5
+	}
+}

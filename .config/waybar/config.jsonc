@@ -1,0 +1,93 @@
+[
+	{
+		// Primary 4K — volle Bar mit modules-right
+		"output": ["Dell Inc. DELL U3225QE D02G684"],
+		"layer": "top",
+		"position": "top",
+		"spacing": 0,
+		"margin": 5,
+		"reload_style_on_change": true,
+		"modules-left": [
+			"custom/logo",
+			"hyprland/workspaces#primary",
+			"custom/spacer",
+			"hyprland/workspaces#portrait",
+			"custom/spacer",
+			"hyprland/workspaces#laptop",
+			"custom/current-layout"
+		],
+		"modules-center": ["hyprland/window"],
+		"modules-right": [
+			"tray",
+			"custom/spacer",
+			"cpu",
+			"custom/spacer",
+			"memory",
+			"custom/spacer",
+			"network",
+			"custom/spacer",
+			"custom/bluetooth",
+			"custom/spacer",
+			"pulseaudio",
+			"custom/spacer",
+			"battery",
+			"custom/spacer",
+			"clock"
+		],
+		"include": [
+			"~/.config/waybar/modules/spacer.jsonc",
+
+			// left
+			"~/.config/waybar/modules/current-layout.jsonc",
+			"~/.config/waybar/modules/logo.jsonc",
+			"~/.config/waybar/modules/workspaces.jsonc",
+
+			// center
+			"~/.config/waybar/modules/window.jsonc",
+
+			// right
+			"~/.config/waybar/modules/audio.jsonc",
+			"~/.config/waybar/modules/battery.jsonc",
+			"~/.config/waybar/modules/bluetooth.jsonc",
+			"~/.config/waybar/modules/clock.jsonc",
+			"~/.config/waybar/modules/cpu.jsonc",
+			"~/.config/waybar/modules/memory.jsonc",
+			"~/.config/waybar/modules/network.jsonc",
+			"~/.config/waybar/modules/tray.jsonc"
+		]
+	},
+	{
+		// Alle anderen Monitore — ohne modules-right
+		"output": ["Dell Inc. DELL U2723QE C55F2H3", "eDP-1"],
+		"layer": "top",
+		"position": "top",
+		"spacing": 0,
+		"margin": 5,
+		"reload_style_on_change": true,
+		"modules-left": [
+			"custom/logo",
+			"hyprland/workspaces#primary",
+			"custom/spacer",
+			"hyprland/workspaces#portrait",
+			"custom/spacer",
+			"hyprland/workspaces#laptop",
+			"custom/current-layout"
+		],
+		"modules-center": ["hyprland/window"],
+		"modules-right": ["clock"],
+		"include": [
+			"~/.config/waybar/modules/spacer.jsonc",
+
+			// left
+			"~/.config/waybar/modules/current-layout.jsonc",
+			"~/.config/waybar/modules/logo.jsonc",
+			"~/.config/waybar/modules/workspaces.jsonc",
+
+			// center
+			"~/.config/waybar/modules/window.jsonc",
+
+			// right
+			"~/.config/waybar/modules/clock.jsonc"
+		]
+	}
+]

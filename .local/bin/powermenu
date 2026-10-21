@@ -7,7 +7,7 @@ case "$chosen" in
 	"  Restart") reboot ;;
 	"  Suspend") systemctl suspend-then-hibernate ;;
 	"  Hibernate") systemctl hibernate ;;
-	"󰿅  Log Out") qtile cmd-obj -o cmd -f shutdown ;;
-	"  Lock") lock ;;
+	"󰿅  Log Out") hyprshutdown -t "Logging out..." ;;
+	"  Lock") hyprlock ;;
 	*) exit 1 ;;
 esac

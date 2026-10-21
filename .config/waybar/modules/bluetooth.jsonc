@@ -1,0 +1,9 @@
+{
+	"custom/bluetooth": {
+		"format": " {}",
+		"exec": "lua ~/.config/waybar/scripts/bluetooth-icon.lua",
+		"return-type": "json",
+		"interval": 5,
+		"on-click": "rofi-bluetooth"
+	}
+}

@@ -1,0 +1,91 @@
+{
+	"hyprland/workspaces#primary": {
+		"format": "{icon}{windows}",
+		"window-rewrite-group-threshold": 2,
+		"persistent-only": true,
+		"format-window-separator": "",
+		"window-rewrite": {
+			"class<firefox>": "󰈹",
+			"class<signal>": "󰭹",
+			"class<org.wezfurlong.wezterm>": "",
+			"class<kiro>": "󰇩",
+			"class<[Cc]ode>": "󰨞",
+			"class<teams>": "󰊻",
+			"title<.*Microsoft Teams.*>": "󰊻"
+		},
+		"persistent-workspaces": {
+			"*": [1, 2, 3]
+		},
+		"format-icons": {
+			"1": "󰎦",
+			"2": "󰎩",
+			"3": "󰎬",
+			"4": "󰎮",
+			"5": "󰎰",
+			"6": "󰎵",
+			"7": "󰎸",
+			"8": "󰎻",
+			"9": "󰎾",
+			"default": ""
+		}
+	},
+	"hyprland/workspaces#portrait": {
+		"format": "{icon}{windows}",
+		"window-rewrite-group-threshold": 2,
+		"persistent-only": true,
+		"format-window-separator": "",
+		"window-rewrite": {
+			"class<firefox>": "󰈹",
+			"class<signal>": "󰭹",
+			"class<org.wezfurlong.wezterm>": "",
+			"class<kiro>": "󰇩",
+			"class<[Cc]ode>": "󰨞",
+			"class<teams>": "󰊻",
+			"title<.*Microsoft Teams.*>": "󰊻"
+		},
+		"persistent-workspaces": {
+			"*": [4, 5]
+		},
+		"format-icons": {
+			"1": "󰎦",
+			"2": "󰎩",
+			"3": "󰎬",
+			"4": "󰎮",
+			"5": "󰎰",
+			"6": "󰎵",
+			"7": "󰎸",
+			"8": "󰎻",
+			"9": "󰎾",
+			"default": ""
+		}
+	},
+	"hyprland/workspaces#laptop": {
+		"format": "{icon}{windows}",
+		"persistent-only": true,
+		"format-window-separator": "",
+		"window-rewrite": {
+			"class<firefox>": "󰈹",
+			"class<signal>": "󰭹",
+			"class<org.wezfurlong.wezterm>": "",
+			"class<kiro>": "󰇩",
+			"class<[Cc]ode>": "󰨞",
+			"class<teams>": "󰊻",
+			"title<.*Microsoft Teams.*>": "󰊻"
+		},
+		"persistent-workspaces": {
+			"*": [6, 7, 8, 9]
+		},
+		"format-icons": {
+			"1": "󰎦",
+			"2": "󰎩",
+			"3": "󰎬",
+			"4": "󰎮",
+			"5": "󰎰",
+			"6": "󰎵",
+			"7": "󰎸",
+			"8": "󰎻",
+			"9": "󰎾",
+			"default": ""
+		}
+	}
+}

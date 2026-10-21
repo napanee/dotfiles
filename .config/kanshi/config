@@ -1,0 +1,38 @@
+# kanshi configuration
+# Match monitors by EDID/serial (in the description string) instead of output
+# name, so layouts survive MST/daisy-chain reordering and name changes after
+# resume/hotplug.
+#
+# NOTE: The description strings below are placeholders based on known EDID
+# serials. Read the exact match string on the live system and paste it in:
+#     hyprctl monitors    (field "description")
+# kanshi matches the full description line, e.g. "Dell Inc. DELL U3225QE D02G684".
+#
+# Portrait transform: 90 = rotate right (270 is upside down).
+
+# Dell U3225QE, serial D02G684 -> primary 4K, normal
+# Dell U2723QE, serial C55F2H3 -> portrait 4K, rotate right (transform 90)
+# eDP-1                        -> laptop panel 1920x1200
+
+# --- Desktop: both external monitors, no laptop panel ---
+profile desktop {
+    output "Dell Inc. DELL U3225QE D02G684" mode 3840x2160 position 2160,840 transform normal scale 1
+    output "Dell Inc. DELL U2723QE C55F2H3" mode 3840x2160 position 0,0 transform 90 scale 1
+}
+
+# --- Laptop + both external monitors ---
+profile office {
+    output "Dell Inc. DELL U3225QE D02G684" mode 3840x2160 position 2160,840 transform normal scale 1
+    output "Dell Inc. DELL U2723QE C55F2H3" mode 3840x2160 position 0,0 transform 90 scale 1
+    output eDP-1 mode 2880x1920 position 6000,1920 transform normal scale 1.5
+}
+
+# --- Laptop alone ---
+profile single {
+    output eDP-1 mode 2880x1920 position 0,0 transform normal scale 1.5
+}
+
+# --- Single unknown external monitor (wildcard match) ---
+profile external {
+    output "*" enable
+}

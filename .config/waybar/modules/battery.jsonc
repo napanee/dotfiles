@@ -1,0 +1,14 @@
+{
+	"battery": {
+		"format": "{icon}<span letter_spacing='1024'> </span>{capacity}%{time}",
+		"format-icons": {
+			"default": ["󰂎", "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"],
+			"charging": ["󰢟", "󰢜", "󰂆", "󰂇", "󰂈", "󰢝", "󰂉", "󰢞", "󰂊", "󰂋", "󰂅"]
+		},
+		"format-time": " ({H}:{m}h)",
+		"states": {
+			"warning": 20,
+			"critical": 10
+		}
+	}
+}
