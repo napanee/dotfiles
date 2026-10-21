@@ -1,0 +1,9 @@
+@import "../constants.gtk.css";
+
+#battery.warning {
+	color: @warning;
+}
+
+#battery.critical {
+	color: @critical;
+}

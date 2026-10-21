@@ -1,0 +1,9 @@
+/* ================================================================
+	 COLOR PALETTE — to switch themes, only change these values.
+	 Referenced in the CSS via @name. Alpha is baked into the value.
+	 ================================================================ */
+@define-color bg         rgba(29, 32, 33, 1);     /* bar background base        */
+@define-color fg         rgba(235, 219, 178, 1);  /* foreground base, light     */
+@define-color accent     rgba(214, 93, 14, 1);    /* accent/orange              */
+@define-color warning    rgba(250, 189, 47, 1);   /* warning/yellow             */
+@define-color critical   rgba(251, 73, 52, 1);    /* critical/red               */

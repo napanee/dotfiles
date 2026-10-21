@@ -1,0 +1,25 @@
+@import "../constants.gtk.css";
+
+#workspaces button {
+	margin: 0 5px;
+	padding: 4px 0;
+	color: shade(@fg, 0.75);
+	background-color: transparent;
+}
+
+#workspaces button label {
+	font-size: 14px;
+	letter-spacing: 5px;
+}
+
+#workspaces button.active.hosting-monitor,
+#workspaces button.visible.hosting-monitor {
+	color: @fg;
+	padding-bottom: 3px;
+	border-bottom: 3px solid @accent;
+}
+
+#workspaces button.urgent {
+	color: shade(@fg, 0.1);
+	background-color: @critical;
+}

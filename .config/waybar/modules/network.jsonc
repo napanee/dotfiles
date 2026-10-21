@@ -1,0 +1,9 @@
+{
+	"network": {
+		"format": "{ifname}",
+		"format-wifi": "󰖩<span letter_spacing='1024'> </span>{essid} ({ipaddr})",
+		"format-ethernet": "<span letter_spacing='1024'> </span>{ifname}",
+		"format-disconnected": "",
+		"tooltip-format-wifi": "{essid} ({signalStrength}%)"
+	}
+}

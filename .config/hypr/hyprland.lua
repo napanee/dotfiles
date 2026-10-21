@@ -70,7 +70,7 @@ hl.on("hyprland.start", function()
     hl.exec_cmd("hypridle")
     hl.exec_cmd("kanshi")
     hl.exec_cmd("dunst")
-    hl.exec_cmd("waybar")
+    hl.exec_cmd("waybar --style ~/.config/waybar/styles/styles.gtk.css")
     hl.exec_cmd("sh -c 'sleep 2 && enpass'")
     hl.exec_cmd("sh -c 'sleep 2 && nextcloud --background'")
     hl.exec_cmd("gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'")
@@ -192,7 +192,7 @@ hl.bind(mod .. " + mouse:273", hl.dsp.window.resize(), { mouse = true })
 
 -- Reload / Exit
 hl.bind(mod .. " + CTRL + R",       hl.dsp.exec_cmd("hyprctl reload"))
-hl.bind(mod .. " + SHIFT + R",      hl.dsp.exec_cmd("sh -c 'killall waybar; sleep 0.3; waybar'"))
+hl.bind(mod .. " + SHIFT + R",      hl.dsp.exec_cmd("sh -c 'killall waybar; sleep 0.3; waybar --style ~/.config/waybar/styles/styles.gtk.css'"))
 hl.bind(mod .. " + CTRL + Q",       hl.dsp.exit())
 
 -- Workspaces (ersetzt qtile groups 1-9)

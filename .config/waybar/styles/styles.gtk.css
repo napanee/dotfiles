@@ -1,0 +1,28 @@
+@import "constants.gtk.css";
+
+@import "components/audio.gtk.css";
+@import "components/battery.gtk.css";
+@import "components/logo.gtk.css";
+@import "components/current-layout.gtk.css";
+@import "components/spacer.gtk.css";
+@import "components/workspaces.gtk.css";
+@import "components/battery.gtk.css";
+
+* {
+	font-family: "Symbols Nerd Font Mono", "SauceCodePro Nerd Font Mono", monospace;
+	font-size: 13px;
+	border: none;
+	border-radius: 0;
+	min-height: 0;
+}
+
+window#waybar {
+	background-color: alpha(@bg, 0.75);
+	color: @fg;
+}
+
+.modules-left,
+.modules-center,
+.modules-right {
+	padding: 5px 0;
+}

@@ -1,0 +1,5 @@
+@import "../constants.gtk.css";
+
+#pulseaudio.muted {
+	color: shade(@fg, 0.60);
+}

@@ -1,0 +1,6 @@
+{
+	"memory": {
+		"interval": 30,
+		"format": "<span letter_spacing='1024'> </span>{used:.0f}G/{total:.0f}G<span letter_spacing='1024'> </span>S:{swapPercentage}%"
+	}
+}
