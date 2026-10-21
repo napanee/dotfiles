@@ -37,7 +37,8 @@ hl.workspace_rule({ workspace = "9", monitor = mon_laptop })
 --- ENVIRONMENT ---
 -------------------
 
-hl.env("XCURSOR_SIZE", "16")
+hl.env("XCURSOR_SIZE", "24")
+hl.env("HYPRCURSOR_SIZE", "24")
 hl.env("QT_AUTO_SCREEN_SCALE_FACTOR", "0")
 hl.env("QT_SCALE_FACTOR", "1")
 hl.env("MOZ_ENABLE_WAYLAND", "1")
@@ -144,8 +145,8 @@ hl.bind(mod .. " + SHIFT + Return", hl.dsp.exec_cmd("wezterm"))
 hl.bind(mod .. " + Space",          hl.dsp.exec_cmd("rofi -show drun"))
 hl.bind(mod .. " + SHIFT + W",      hl.dsp.exec_cmd("rofi -show window"))
 hl.bind(mod .. " + SHIFT + E",      hl.dsp.exec_cmd("rofi -show emoji"))
+hl.bind(mod .. " + SHIFT + B",      hl.dsp.exec_cmd("rofi-bluetooth"))
 hl.bind(mod .. " + SHIFT + Q",      hl.dsp.exec_cmd("powermenu"))
-hl.bind(mod .. " + SHIFT + B",      hl.dsp.exec_cmd("firefox"))
 
 -- Session / Lock
 hl.bind(mod .. " + SHIFT + L",      hl.dsp.exec_cmd("loginctl lock-session"))
