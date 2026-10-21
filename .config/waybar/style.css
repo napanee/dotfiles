@@ -4,7 +4,7 @@
     /* Icons zuerst (grosse, proportionale Glyphen der Symbols Nerd Font),
        dann SauceCodePro fuer Text/Ziffern. Pango waehlt pro Glyph die erste
        Font, die es kann -> Icons = Symbols NF, Buchstaben = SauceCodePro. */
-    font-family: "Symbols Nerd Font", "SauceCodePro Nerd Font Mono", monospace;
+    font-family: "Symbols Nerd Font Mono", "SauceCodePro Nerd Font Mono", monospace;
     font-size: 13px;
     border: none;
     border-radius: 0;
@@ -24,11 +24,14 @@ window#waybar {
 }
 
 #workspaces button {
-    margin-left: -5px;
-    padding: 1px 7px 2px;
+    padding: 1px 8px 2px;
     border-radius: 4px;
     color: #a89984;
     background-color: transparent;
+}
+
+#workspaces button + button {
+    margin-left: -5px;
 }
 
 #workspaces button label {
@@ -81,7 +84,7 @@ window#waybar {
 }
 
 #cpu {
-    border-left: 2px solid #000000;
+    border-left: 1px solid #ebdbb2;
 }
 
 #cpu,
@@ -89,7 +92,7 @@ window#waybar {
 #network,
 #pulseaudio,
 #battery {
-    border-right: 2px solid #000000;
+    border-right: 1px solid #ebdbb2;
 }
 
 #clock,
