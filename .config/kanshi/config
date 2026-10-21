@@ -27,10 +27,10 @@ profile desktop {
 profile office {
     output "Dell Inc. DELL U3225QE D02G684" mode 3840x2160 position 2160,840 transform normal scale 1
     output "Dell Inc. DELL U2723QE C55F2H3" mode 3840x2160 position 0,0 transform 90 scale 1
-    output eDP-1 mode 3840x2160 position 6000,1920 transform normal scale 2
+    output eDP-1 mode 2880x1920 position 6000,1920 transform normal scale 1.5
 }
 
 # --- Laptop allein ---
 profile single {
-    output eDP-1 mode 3840x2160 position 0,0 transform normal scale 2
+    output eDP-1 mode 2880x1920 position 0,0 transform normal scale 1.5
 }
